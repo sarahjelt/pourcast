@@ -1,0 +1,15 @@
+@font-face {
+	font-family: 'digital-clock-font';
+	src: url('../fonts/digital-7.regular.ttf');
+}
+
+h1 {
+	font-family: 'digital-clock-font';
+	font-size: 70px;
+	color: green;
+	text-align: center;
+}
+
+div {
+	text-align: center;
+}
