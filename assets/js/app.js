@@ -1,18 +1,50 @@
-function weather() {
-  console.log("running");
-  var zip = $(this).attr("zippy");
-  //this URL doesn't include the ZIP variable -- DarkSky requires latitude,longitude so we need to figure out how to convert ZIP code input to latitude,longitude then use that as variable we plug in to API URL
-  var queryURL = "https://api.darksky.net/forecast/fb4108e2567beb3a132c23bfa046a5d0/35.895040,-78.923747";
+$(".submit").on("click", function(event) {
+  var zip = $(".zippy").val().trim();
+  event.preventDefault();
+
+  localStorage.clear();
+  localStorage.setItem("zip", JSON.stringify(zip));
+
+  $(".weather").empty();
+  var queryURL = "http://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
 
   $.ajax({
     url: queryURL,
     method: 'GET'
   })
   .done(function(response) {
-    var results = response.currently;
+    var results = response.forecast.txt_forecast.forecastday[0];
+    var weatherInfo = $("<p>");
+    console.log(results.fcttext);
 
-    console.log(results.summary);
+    $(".weather").append(weatherInfo);
+    weatherInfo.text(localStorage.getItem("zip")); //cannot get this to print to screen...
+    $(".weather").append(weatherInfo);
+    weatherInfo.text(results.fcttext);
     })
+});
+
+function weather() {
+  if (localStorage.getItem("zip").length === 5) {
+    console.log("running");
+    var zip = $(".zippy").val().trim();
+    var queryURL = "http://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
+    
+    $.ajax({
+      url: queryURL,
+      method: 'GET'
+    })
+  .done(function(response) {
+    var results = response.forecast.txt_forecast.forecastday[0];
+    var weatherInfo = $("<p>");
+    console.log(results.fcttext);
+
+    $(".weather").append(weatherInfo);
+    weatherInfo.text(localStorage.getItem("zip")); //cannot get this to print to screen...
+    $(".weather").append(weatherInfo);
+    weatherInfo.text(results.fcttext);
+    })
+  }
 }
 
 weather();
