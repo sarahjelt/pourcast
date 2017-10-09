@@ -6,7 +6,7 @@ $(".submit").on("click", function(event) {
   localStorage.setItem("zip", JSON.stringify(zip));
 
   $(".weather").empty();
-  var queryURL = "http://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
+  var queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
 
   $.ajax({
     url: queryURL,
@@ -28,7 +28,7 @@ function weather() {
   if (localStorage.getItem("zip").length === 5) {
     console.log("running");
     var zip = $(".zippy").val().trim();
-    var queryURL = "http://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
+    var queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
     
     $.ajax({
       url: queryURL,
