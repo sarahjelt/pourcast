@@ -1,3 +1,37 @@
+var recommendationsObj = {
+  pairs: [{
+    icon: "chancetstorms",
+    beer: "smoked stout",
+  }, {
+    icon: "nt_chancetstorms",
+    beer: "imperial stout",
+  }, {
+    icon: "tstorms",
+    beer: "imperial IPA",
+  }, {
+    icon: "chancerain",
+    beer: "coffee",
+  }, {
+    icon: "clear",
+    beer: "saison",
+  }, {
+    icon: "mostlycloudy",
+    beer: "sour",
+  }, {
+    icon: "partlycloudy",
+    beer: "coffee stout",
+  }, {
+    icon: "cloudy",
+    beer: "IPA",
+  }, {
+    icon: "rain",
+    beer: "brown ale",
+  }, {
+    icon: "snow",
+    beer: "pale ale",
+  }]
+}
+
 $(".submit").on("click", function(event) {
   var zip = $(".zippy").val().trim();
   event.preventDefault();
@@ -40,6 +74,8 @@ function weather() {
     var results = response.forecast.txt_forecast.forecastday[0];
     var zippy = $("<p>");
     var weatherInfo = $("<p>");
+    var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
+    getABeer(weatherIcon);
     console.log(results.fcttext);
 
     $(".weather").append(zippy);
@@ -52,3 +88,31 @@ function weather() {
 }
 
 weather();
+
+function getABeer(val1) {
+  var weatherKey
+
+  for (var i = 0; i < recommendationsObj.pairs.length; i++) {
+    if (recommendationsObj.pairs[i].icon === val1) {
+      weatherKey = i;
+    }
+
+    else {
+      console.log("not it");
+    }
+  }
+
+  var APIkey = "c54928017d8919c3c993272329ea38d1";
+  var beer = recommendationsObj.pairs[weatherKey].beer;
+  console.log("line 106 I think the beer is " + beer);
+  var searchQueryURL = "http://api.brewerydb.com/v2/search?key=" + APIkey + "&q=" + beer + "&type=beer&withBreweries=Y";
+
+  var queryURL = "http://api.brewerydb.com/v2/beer/random?key=" + APIkey + "&type=beer&withBreweries=Y";
+
+  $.ajax({
+    url: searchQueryURL,
+    method: "GET"
+  }).done(function(cheese) {
+    console.log(cheese);
+  })
+}
