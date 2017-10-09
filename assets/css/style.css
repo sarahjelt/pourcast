@@ -4,7 +4,7 @@
 }
 
 h1 {
-	font-family: 'digital-clock-font';
+	font-family: 'digital-clock-font', sans-serif;
 	font-size: 70px;
 	color: green;
 	text-align: center;
@@ -12,4 +12,9 @@ h1 {
 
 div {
 	text-align: center;
+}
+
+p {
+	margin: 10px;
+	font-size: 18px;
 }
