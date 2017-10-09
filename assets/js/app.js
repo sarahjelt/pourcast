@@ -3,7 +3,7 @@ $(".submit").on("click", function(event) {
   event.preventDefault();
 
   localStorage.clear();
-  localStorage.setItem("zip", JSON.stringify(zip));
+  localStorage.setItem("zip", zip);
 
   $(".weather").empty();
   var queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
