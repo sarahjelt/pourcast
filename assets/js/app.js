@@ -125,5 +125,38 @@ function getABeer(val1) {
     console.log(beerName);
     console.log(label);
     console.log(abv);
+
+    sendBeerToFire(beer, description, abv);
+  })
+}
+
+////////// Initializes Firebase
+
+var config = {
+    apiKey: "AIzaSyD8Ty6GU2c1yTwgvvS66r3Th5cM55HZEyA",
+    authDomain: "project-one-c87a1.firebaseapp.com",
+    databaseURL: "https://project-one-c87a1.firebaseio.com",
+    projectId: "project-one-c87a1",
+    storageBucket: "project-one-c87a1.appspot.com",
+    messagingSenderId: "294964502453"
+  };
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+var beersRef = database.ref("beers");
+
+function sendBeerToFire(beer, descript, abv) {
+  var beerObj = {
+    beer: beer,
+    description: descript,
+    abv: abv
+  }
+
+  beersRef.push(beerObj); 
+
+  beersRef.on("child_added", function(snapshot) {
+    var children = snapshot.numChildren();
+    console.log("number of beers in the database: " + children);
   })
 }
