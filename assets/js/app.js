@@ -121,6 +121,16 @@ function getABeer(val1) {
       label = cheese.data[randomBeerArrNum].labels.large;
     }
 
+    var beerPrint = $("<p class='beero'>");
+    var beerInfo = $("<p>");
+    var beerLabel = $("<img>");
+    $(".beer").append(beerPrint);
+    beerPrint.html(beerName);
+    $(".beer").append(beerInfo);
+    beerInfo.html(description + "<br>" + abv + "%");
+    $(".beer").append(beerLabel);
+    beerLabel.html(label);
+
     console.log("line 117 " + description);
     console.log(beerName);
     console.log(label);
