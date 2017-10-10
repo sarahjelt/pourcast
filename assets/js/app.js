@@ -155,7 +155,7 @@ function sendBeerToFire(beer, descript, abv) {
 
   beersRef.push(beerObj); 
 
-  beersRef.on("child_added", function(snapshot) {
+  database.ref().on("child_added", function(snapshot) {
     var children = snapshot.numChildren();
     console.log("number of beers in the database: " + children);
   })
