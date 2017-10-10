@@ -101,9 +101,9 @@ function getABeer(val1) {
   var APIkey = "c54928017d8919c3c993272329ea38d1";
   var beer = recommendationsObj.pairs[weatherKey].beer;
   console.log("line 106 I think the beer is " + beer);
-  var searchQueryURL = "http://api.brewerydb.com/v2/search?key=" + APIkey + "&q=" + beer + "&type=beer&withBreweries=Y";
+  var searchQueryURL = "https://api.brewerydb.com/v2/search?key=" + APIkey + "&q=" + beer + "&type=beer&withBreweries=Y";
 
-  var queryURL = "http://api.brewerydb.com/v2/beer/random?key=" + APIkey + "&type=beer&withBreweries=Y";
+  var queryURL = "https://api.brewerydb.com/v2/beer/random?key=" + APIkey + "&type=beer&withBreweries=Y";
 
   $.ajax({
     url: searchQueryURL,
