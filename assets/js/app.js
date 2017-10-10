@@ -1,34 +1,67 @@
 var recommendationsObj = {
   pairs: [{
     icon: "chancetstorms",
-    beer: "smoked stout",
+    beer: ["gose", "hefeweizen", "wit"],
   }, {
     icon: "nt_chancetstorms",
-    beer: "imperial stout",
+    beer: ["dubbel"],
   }, {
     icon: "tstorms",
-    beer: "imperial IPA",
+    beer: ["imperial IPA", "pale ale"],
   }, {
     icon: "chancerain",
-    beer: "coffee",
+    beer: ["cream stout"],
   }, {
     icon: "clear",
-    beer: "saison",
+    beer: ["saison", "sour", "shandy"],
   }, {
     icon: "mostlycloudy",
-    beer: "sour",
+    beer: ["pumpkin ale"],
   }, {
     icon: "partlycloudy",
-    beer: "coffee stout",
+    beer: ["coffee stout", "barley wine", "farmhouse ale"],
   }, {
     icon: "cloudy",
-    beer: "IPA",
+    beer: ["spiced ale"],
   }, {
     icon: "rain",
-    beer: "brown ale",
+    beer: ["IPA"],
   }, {
     icon: "snow",
-    beer: "pale ale",
+    beer: ["imperial stout"],
+  }, {
+    icon: "chanceflurries",
+    beer: ["smoked stout"],
+  }, {
+    icon: "chancesleet",
+    beer: ["baltic porter"],
+  }, {
+    icon: "chancesnow",
+    beer: ["oatmeal stout"],
+  }, {
+    icon: "flurries",
+    beer: ["milk stout", "oyster stout"],
+  }, {
+    icon: "fog",
+    beer: ["amber ale", "bitter"],
+  }, {
+    icon: "hazy",
+    beer: ["pale ale", "imperial pilsner"],
+  }, {
+    icon: "mostlysunny",
+    beer: ["saison", "kolsch"],
+  }, {
+    icon: "partlysunny",
+    beer: ["berliner weiss", "pale lager"],
+  }, {
+    icon: "sunny",
+    beer: ["pale ale", "biere de garde"],
+  }, {
+    icon: "sleet",
+    beer: ["eisbock", "dunkelweizen"],
+  }, {
+    icon: "unknown",
+    beer: ["wine"],
   }]
 }
 
@@ -97,13 +130,12 @@ function getABeer(val1) {
       weatherKey = i;
     }
   }
-  
+
+  var randomBeerType = Math.floor(Math.random() * recommendationsObj.pairs[weatherKey].beer.length)
   var APIkey = "c54928017d8919c3c993272329ea38d1";
-  var beer = recommendationsObj.pairs[weatherKey].beer;
+  var beer = recommendationsObj.pairs[weatherKey].beer[randomBeerType];
   console.log("line 106 I think the beer is " + beer);
   var searchQueryURL = "https://api.brewerydb.com/v2/search?key=" + APIkey + "&q=" + beer + "&type=beer&withBreweries=Y";
-
-  var queryURL = "https://api.brewerydb.com/v2/beer/random?key=" + APIkey + "&type=beer&withBreweries=Y";
 
   $.ajax({
     url: searchQueryURL,
@@ -111,21 +143,34 @@ function getABeer(val1) {
   }).done(function(cheese) {
     var randomBeerArrNum = Math.floor(Math.random() * 50);
     console.log(randomBeerArrNum);
+    console.log(cheese);
 
-    var description = cheese.data[randomBeerArrNum].description;
+
     var beerName = cheese.data[randomBeerArrNum].name;
     var abv = cheese.data[randomBeerArrNum].abv;
+    var brewery = cheese.data[randomBeerArrNum].breweries[0].name;
+    var description
     var label
 
     if (typeof(cheese.data[randomBeerArrNum].labels) !== "undefined") {
       label = cheese.data[randomBeerArrNum].labels.large;
     }
 
+    if (typeof(cheese.data[randomBeerArrNum].description) !== "undefined") {
+      description = cheese.data[randomBeerArrNum].description;      
+    }
+    else {
+      description = "";
+    }
+
     var beerPrint = $("<p class='beero'>");
+    var beerBrewery = $("<p>");
     var beerInfo = $("<p>");
     var beerLabel = $("<img>");
     $(".beer").append(beerPrint);
     beerPrint.html(beerName);
+    $(".beer").append(beerBrewery);
+    beerBrewery.html(brewery);
     $(".beer").append(beerInfo);
     beerInfo.html(description + "<br>" + abv + "%");
     $(".beer").append(beerLabel);
@@ -135,8 +180,9 @@ function getABeer(val1) {
     console.log(beerName);
     console.log(label);
     console.log(abv);
+    console.log(beerBrewery)
 
-    sendBeerToFire(beerName, description, abv);
+    sendBeerToFire(beerName, description, abv, brewery);
   })
 }
 
@@ -156,11 +202,16 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var beersRef = database.ref("beers");
 
-function sendBeerToFire(beer, descript, abv) {
+function sendBeerToFire(beer, descript, abv, brewery) {
+  if (descript === "undefined") {
+    descript = "";
+  }
+
   var beerObj = {
     beer: beer,
     description: descript,
-    abv: abv
+    abv: abv,
+    brewery: brewery
   }
 
   beersRef.push(beerObj); 
