@@ -48,13 +48,13 @@ $(".submit").on("click", function(event) {
   })
   .done(function(response) {
     var results = response.forecast.txt_forecast.forecastday[0];
-    var zippy = $("<p>");
+    var zippy = $("<p class='zippo'>");
     var weatherInfo = $("<p>");
     console.log(results.fcttext);
 
     $(".weather").append(zippy);
     zippy.html(response.location.zip);
-    console.log(response.location.zip);
+    console.log(response.location.zip + "is working");
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
     })
@@ -72,7 +72,7 @@ function weather() {
     })
   .done(function(response) {
     var results = response.forecast.txt_forecast.forecastday[0];
-    var zippy = $("<p>");
+    var zippy = $("<p class='zippo'>");
     var weatherInfo = $("<p>");
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     getABeer(weatherIcon);
