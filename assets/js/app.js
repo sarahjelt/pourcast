@@ -79,7 +79,7 @@ function weather() {
     console.log(results.fcttext);
 
     $(".weather").append(zippy);
-    zippy.html(response.location.zip);
+    zippy.text(response.location.zip);
     console.log(response.location.zip);
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
@@ -121,12 +121,22 @@ function getABeer(val1) {
       label = cheese.data[randomBeerArrNum].labels.large;
     }
 
+    var beerPrint = $("<p class='beero'>");
+    var beerInfo = $("<p>");
+    var beerLabel = $("<img>");
+    $(".beer").append(beerPrint);
+    beerPrint.html(beerName);
+    $(".beer").append(beerInfo);
+    beerInfo.html(description + "<br>" + abv + "%");
+    $(".beer").append(beerLabel);
+    beerLabel.html(label);
+
     console.log("line 117 " + description);
     console.log(beerName);
     console.log(label);
     console.log(abv);
 
-    sendBeerToFire(beer, description, abv);
+    sendBeerToFire(beerName, description, abv);
   })
 }
 

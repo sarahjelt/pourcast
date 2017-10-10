@@ -31,16 +31,21 @@ p {
 .weather {
 	border: 3px solid darkgray;
 	border-radius: 10px;
-	margin: 5% 2% 5% 5%;
+	margin: 5% 2% 5% 2%;
 }
 
 .beer {
 	border: 3px solid darkgray;
 	border-radius: 10px;
-	margin: 5% 5% 5% 2%;
+	margin: 5% 2% 5% 2%;
 }
 
 .zippo {
+	font-size: 24px;
+	font-weight: 800;
+}
+
+.beero {
 	font-size: 24px;
 	font-weight: 800;
 }
