@@ -96,10 +96,6 @@ function getABeer(val1) {
     if (recommendationsObj.pairs[i].icon === val1) {
       weatherKey = i;
     }
-
-    else {
-      console.log("not it");
-    }
   }
 
   var APIkey = "c54928017d8919c3c993272329ea38d1";
@@ -113,6 +109,21 @@ function getABeer(val1) {
     url: searchQueryURL,
     method: "GET"
   }).done(function(cheese) {
-    console.log(cheese);
+    var randomBeerArrNum = Math.floor(Math.random() * 50);
+    console.log(randomBeerArrNum);
+
+    var description = cheese.data[randomBeerArrNum].description;
+    var beerName = cheese.data[randomBeerArrNum].name;
+    var abv = cheese.data[randomBeerArrNum].abv;
+    var label
+
+    if (typeof(cheese.data[randomBeerArrNum].labels) !== "undefined") {
+      label = cheese.data[randomBeerArrNum].labels.large;
+    }
+
+    console.log("line 117 " + description);
+    console.log(beerName);
+    console.log(label);
+    console.log(abv);
   })
 }
