@@ -79,7 +79,7 @@ function weather() {
     console.log(results.fcttext);
 
     $(".weather").append(zippy);
-    zippy.html(response.location.zip);
+    zippy.text(response.location.zip);
     console.log(response.location.zip);
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
