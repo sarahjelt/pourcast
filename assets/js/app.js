@@ -97,7 +97,7 @@ function getABeer(val1) {
       weatherKey = i;
     }
   }
-
+  
   var APIkey = "c54928017d8919c3c993272329ea38d1";
   var beer = recommendationsObj.pairs[weatherKey].beer;
   console.log("line 106 I think the beer is " + beer);
