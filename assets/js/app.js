@@ -168,5 +168,7 @@ function sendBeerToFire(beer, descript, abv) {
   database.ref().on("child_added", function(snapshot) {
     var children = snapshot.numChildren();
     console.log("number of beers in the database: " + children);
+
+    $(".odometer").text(children + " beers recommended");
   })
 }

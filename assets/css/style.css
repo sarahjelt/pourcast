@@ -28,24 +28,18 @@ p {
 	font-size: 18px;
 }
 
-.weather {
+.weather, .beer, .table-count {
 	border: 3px solid darkgray;
 	border-radius: 10px;
 	margin: 5% 2% 5% 2%;
 }
 
-.beer {
-	border: 3px solid darkgray;
-	border-radius: 10px;
-	margin: 5% 2% 5% 2%;
-}
-
-.zippo {
+.zippo, .beero {
 	font-size: 24px;
 	font-weight: 800;
 }
 
-.beero {
-	font-size: 24px;
-	font-weight: 800;
+.counter {
+	font-size: 20px;
+	margin: 5px;
 }
