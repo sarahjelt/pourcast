@@ -43,3 +43,9 @@ p {
 	font-size: 20px;
 	margin: 5px;
 }
+
+.beer-label {
+	width: 100%;
+	padding-left: 50px;
+	padding-right: 50px;
+}
