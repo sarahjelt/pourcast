@@ -65,16 +65,16 @@ var recommendationsObj = {
   }]
 }
 
-//when you submit zip code, set that zip in localstorage and 
+//when you submit zip code, set that zip in localstorage and rec new beer
 $(".submit").on("click", function(event) {
   var zip = $(".zippy").val().trim();
-  var beer = recommendationsObj.pairs[weatherKey].beer;
   event.preventDefault();
 
   localStorage.clear();
   localStorage.setItem("zip", zip);
 
   $(".weather").empty();
+  $(".beer").empty();
   var queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
 
   $.ajax({
@@ -85,6 +85,7 @@ $(".submit").on("click", function(event) {
     var results = response.forecast.txt_forecast.forecastday[0];
     var zippy = $("<p class='zippo'>");
     var weatherInfo = $("<p>");
+    var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     console.log(results.fcttext);
 
     $(".weather").append(zippy);
@@ -92,9 +93,9 @@ $(".submit").on("click", function(event) {
     console.log(response.location.zip + "is working");
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
+    getABeer(weatherIcon);
     })
 
-  getABeer();
 });
 
 function weather() {
