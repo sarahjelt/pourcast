@@ -151,13 +151,16 @@ function getABeer(val1) {
 
 
     var beerName = cheese.data[randomBeerArrNum].name;
-    var abv = cheese.data[randomBeerArrNum].abv;
     var brewery = cheese.data[randomBeerArrNum].breweries[0].name;
-    var description
-    var label
+    var abv;
+    var description;
+    var label;
 
     if (typeof(cheese.data[randomBeerArrNum].labels) !== "undefined") {
       label = cheese.data[randomBeerArrNum].labels.large;
+    }
+    else {
+      label = "assets/images/placehold.jpg";
     }
 
     if (typeof(cheese.data[randomBeerArrNum].description) !== "undefined") {
@@ -165,6 +168,13 @@ function getABeer(val1) {
     }
     else {
       description = "";
+    }
+
+    if (typeof(cheese.data[randomBeerArrNum].abv) !== "undefined") {
+      abv = cheese.data[randomBeerArrNum].abv;
+    }
+    else {
+      abv = "mystery";
     }
 
     var beerPrint = $("<p class='beero'>");
@@ -177,8 +187,8 @@ function getABeer(val1) {
     beerBrewery.html(brewery);
     $(".beer").append(beerInfo);
     beerInfo.html(description + "<br>" + abv + "%");
+    beerLabel.attr("src", label).addClass("img-responsive beer-label");
     $(".beer").append(beerLabel);
-    beerLabel.html(label);
 
     console.log("line 117 " + description);
     console.log(beerName);
