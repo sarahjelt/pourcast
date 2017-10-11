@@ -32,8 +32,10 @@ var recommendationsObj = {
   }]
 }
 
+//when you submit zip code, set that zip in localstorage and 
 $(".submit").on("click", function(event) {
   var zip = $(".zippy").val().trim();
+  var beer = recommendationsObj.pairs[weatherKey].beer;
   event.preventDefault();
 
   localStorage.clear();
@@ -58,6 +60,8 @@ $(".submit").on("click", function(event) {
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
     })
+
+  getABeer();
 });
 
 function weather() {
@@ -169,6 +173,6 @@ function sendBeerToFire(beer, descript, abv) {
     var children = snapshot.numChildren();
     console.log("number of beers in the database: " + children);
 
-    $(".odometer").text(children + " beers recommended");
+    $(".odometer").text(children);
   })
 }
