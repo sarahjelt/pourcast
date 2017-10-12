@@ -85,8 +85,11 @@ $(".submit").on("click", function(event) {
     var results = response.forecast.txt_forecast.forecastday[0];
     var zippy = $("<p class='zippo'>");
     var weatherInfo = $("<p>");
+    var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
     console.log(results.fcttext);
+    getABeer(weatherIcon);
+    getAColorText(highTemp);
 
     $(".weather").append(zippy);
     zippy.html(response.location.zip);
@@ -94,8 +97,6 @@ $(".submit").on("click", function(event) {
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
     })
-
-  getABeer();
 });
 
 function weather() {
@@ -114,6 +115,7 @@ function weather() {
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
     getABeer(weatherIcon);
+    getAColorText(highTemp);
 
     $(".weather").append(zippy);
     zippy.text(response.location.zip);
@@ -193,94 +195,86 @@ function getABeer(val1) {
 function getAColorText(temp) {
   var weatherText 
 
-  switch(temp) {
-    case temp >= 90: 
-      var colorTextArr = ["Today's weather is sweaty armpits and misery", 
-      "Be prepared to melt like the wicked witch you know you secretly are.", 
-      "Today’s weather is fried eggs on the sidewalk. They’re eco-friendly, I guess.",
-      "The human body is made of 65% water and that’s way less than the humidity today. Good luck.",
-      "Today’s weather is just fucking miserable.",
-      "Wow, this is perfect weather for a beer. Like yesterday. And tomorrow. And forever. Every day is perfect for a beer.",
-      "Today’s weather is like you smoked a bunch of bath salts in Florida but you don’t know where you got the bath salts or how you got to Florida.",
-      "Mordor",
-      "These are the days sweat stains are made out of.",
-      "Today you’re going to sweat in places you didn’t know could sweat. It’s going to be awful."]
+  if (temp >= 90) {
+    var colorTextArr = ["Today's weather is sweaty armpits and misery", 
+    "Be prepared to melt like the wicked witch you know you secretly are.", 
+    "Today’s weather is fried eggs on the sidewalk. They’re eco-friendly, I guess.",
+    "The human body is made of 65% water and that’s way less than the humidity today. Good luck.",
+    "Today’s weather is just fucking miserable.",
+    "Wow, this is perfect weather for a beer. Like yesterday. And tomorrow. And forever. Every day is perfect for a beer.",
+    "Today’s weather is like you smoked a bunch of bath salts in Florida but you don’t know where you got the bath salts or how you got to Florida.",
+    "Mordor",
+    "These are the days sweat stains are made out of.",
+    "Today you’re going to sweat in places you didn’t know could sweat. It’s going to be awful."]
 
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
+  } 
+
+  else if (temp >= 80 && temp < 90) {
+    var colorTextArr = ["Today is undercooked fried eggs on the sidewalk. You’re still going to sweat.",
+    "Today is...still too hot."]
     
-    case temp >= 80 && < 90: 
-      var colorTextArr = ["Today is undercooked fried eggs on the sidewalk. You’re still going to sweat.",
-      "Today is...still too hot."]
-      
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
+  }
+
+  else if (temp >= 70 && temp < 80) {
+    var colorTextArr = ["Is it Spring? Is it Fall? Is it that weird winter day that reminds you global warming is real? I don’t know, but head outside anyway and report back."]
     
-    case temp >= 70 && < 90:
-      var colorTextArr = ["Is it Spring? Is it Fall? Is it that weird winter day that reminds you global warming is real? I don’t know, but head outside anyway and report back."]
-      
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
+  }
+
+  else if (temp >= 60 && temp < 70) {
+    var colorTextArr = ["Do you need a jacket? Do you wear a sweater? A t-shirt? Who the fuck knows."]
     
-    case temp >= 60 && < 70: 
-      var colorTextArr = ["Do you need a jacket? Do you wear a sweater? A t-shirt? Who the fuck knows."]
-      
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
+  }
+
+  else if (temp >= 50 && temp < 60) {
+    var colorTextArr = ["Today’s weather is amazing so get your butt outside already.",
+    "It’s rainbows and unicorns and fairies out there."]
     
-    case temp >= 50 && < 60: 
-      var colorTextArr = ["Today’s weather is amazing so get your butt outside already.",
-      "It’s rainbows and unicorns and fairies out there."]
-      
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
+  }
+
+  else if (temp >= 40 && temp < 50) {
+    var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."]
     
-    case temp >= 40 && < 50:
-      var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."]
-      
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
+  }
+
+  else if (temp >= 30 && temp < 40) {
+    var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."]
     
-    case temp >= 30 && < 40: 
-      var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."]
-      
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
+  }
+
+  else if (temp >= 20 && temp < 30) {
+    var colorTextArr = ["It’s too cold to leave bed. Don’t bother.",
+    "Today’s weather means your hands are colder than the beer you’re drinking. Worth it."]
     
-    case temp >= 20 && < 30:
-      var colorTextArr = ["It’s too cold to leave bed. Don’t bother.",
-      "Today’s weather means your hands are colder than the beer you’re drinking. Worth it."]
-      
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
+  }
+
+  else if (temp < 20) {
+    var colorTextArr = ["It’s Summer! ...somewhere else. Far away. Not here.",
+    "Today’s weather is colder than the cold, icy heart you pretend you don’t have.",
+    "Today is the cold, bleak grip of a death eater. All day."]
     
-    case temp < 20:
-      var colorTextArr = ["It’s Summer! ...somewhere else. Far away. Not here.",
-      "Today’s weather is colder than the cold, icy heart you pretend you don’t have.",
-      "Today is the cold, bleak grip of a death eater. All day."]
-      
-      var random = Math.floor(Math.random() * colorTextArr)
-      var weatherText = colorTextArr[random];
-      break;
-    
-    default: 
-      break;
+    var random = Math.floor(Math.random() * colorTextArr.length)
+    var weatherText = colorTextArr[random];
   }
 
   console.log(weatherText);
-  writeToThePage(weatherText);
-}
-
-function writeToThePage(text) {
-  var pColorText = 
+  var pColorText = $("<p>");
+  pColorText.text(weatherText).appendTo(".weather");
 }
 
 ////////// Initializes Firebase
