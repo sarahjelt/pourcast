@@ -332,8 +332,11 @@ function sendBeerToFire(beer, descript, abv, brewery) {
     var kiddo = snapshot.numChildren();
     console.log(kiddo);
     console.log("number of beers in the database: " + kiddo);
-      console.log(snapshot.val());
+    console.log(snapshot.child("beers").key);
     $(".odometer").text(kiddo);
+  });
+
+  database.ref("beers").limitToLast(20).on("child_added", function(childSnapshot) {
 
     $('.table').prepend("<tr><td></td><td></td><td></td></tr>");
 
@@ -344,13 +347,12 @@ function sendBeerToFire(beer, descript, abv, brewery) {
         .eq(0)
         .children("td");
 
-      firstRowTds.eq(0).text(snapshot.val().beer);
-        console.log(snapshot.val().beer);
-      firstRowTds.eq(1).text(snapshot.val().brewery);
-        console.log(snapshot.val().brewery);
-      firstRowTds.eq(2).text(snapshot.val().abv);
-        console.log(snapshot.val().abv);
+      firstRowTds.eq(0).text(childSnapshot.val().beer);
+        console.log(childSnapshot.val().beer);
+      firstRowTds.eq(1).text(childSnapshot.val().brewery);
+        console.log(childSnapshot.val().brewery);
+      firstRowTds.eq(2).text(childSnapshot.val().abv);
+        console.log(childSnapshot.val().abv);
+    // })
   })
 }
-
-
