@@ -88,14 +88,23 @@ $(".submit").on("click", function(event) {
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
     console.log(results.fcttext);
-    getABeer(weatherIcon);
-    getAColorText(highTemp);
 
     $(".weather").append(zippy);
     zippy.html(response.location.zip);
     console.log(response.location.zip + "is working");
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
+
+    getABeer(weatherIcon);
+
+    if (weatherIcon === "tstorms" || weatherIcon === "rain") {
+      getARainText();
+    }
+
+    else {
+      getAColorText(highTemp);
+    }
+
     })
 });
 
@@ -114,13 +123,21 @@ function weather() {
     var weatherInfo = $("<p>");
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
-    getABeer(weatherIcon);
-    getAColorText(highTemp);
 
     $(".weather").append(zippy);
     zippy.text(response.location.zip);
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
+
+    getABeer(weatherIcon);
+
+    if (weatherIcon === "tstorms" || weatherIcon === "rain") {
+      getARainText();
+    }
+
+    else {
+      getAColorText(highTemp);
+    }
     })
   }
 }
@@ -192,6 +209,19 @@ function getABeer(val1) {
   })
 }
 
+function getARainText() {
+  var colorTextArr = ["Rainboots go with everything today.", "Today's weather is wet feet. All day.",
+  "Today all of your internal crying affected the universe and your own weak human tears are raining down on you. You need a beer.",
+  "You’re going to look like a drowned rat. Have a beer.",
+  "Do you like the smell of rain? If not, you're not going to like the smell of today."]
+  var random = Math.floor(Math.random() * colorTextArr.length);
+  var weatherText = colorTextArr[random];
+
+  console.log(weatherText);
+  var pColorText = $("<p>");
+  pColorText.text(weatherText).appendTo(".weather");
+}
+
 function getAColorText(temp) {
   var weatherText 
 
@@ -205,60 +235,52 @@ function getAColorText(temp) {
     "Today’s weather is like you smoked a bunch of bath salts in Florida but you don’t know where you got the bath salts or how you got to Florida.",
     "Mordor",
     "These are the days sweat stains are made out of.",
-    "Today you’re going to sweat in places you didn’t know could sweat. It’s going to be awful."]
-
+    "Today you’re going to sweat in places you didn’t know could sweat. It’s going to be awful."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   } 
 
   else if (temp >= 80 && temp < 90) {
     var colorTextArr = ["Today is undercooked fried eggs on the sidewalk. You’re still going to sweat.",
-    "Today is...still too hot."]
-    
+    "Today is...still too hot."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
 
   else if (temp >= 70 && temp < 80) {
-    var colorTextArr = ["Is it Spring? Is it Fall? Is it that weird winter day that reminds you global warming is real? I don’t know, but head outside anyway and report back."]
-    
+    var colorTextArr = ["Is it Spring? Is it Fall? Is it that weird winter day that reminds you global warming is real? I don’t know, but head outside anyway and report back."];  
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
 
   else if (temp >= 60 && temp < 70) {
-    var colorTextArr = ["Do you need a jacket? Do you wear a sweater? A t-shirt? Who the fuck knows."]
-    
+    var colorTextArr = ["Do you need a jacket? Do you wear a sweater? A t-shirt? Who the fuck knows."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
 
   else if (temp >= 50 && temp < 60) {
     var colorTextArr = ["Today’s weather is amazing so get your butt outside already.",
-    "It’s rainbows and unicorns and fairies out there."]
-    
+    "It’s rainbows and unicorns and fairies out there."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
 
   else if (temp >= 40 && temp < 50) {
-    var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."]
-    
+    var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
 
   else if (temp >= 30 && temp < 40) {
-    var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."]
-    
+    var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
 
   else if (temp >= 20 && temp < 30) {
     var colorTextArr = ["It’s too cold to leave bed. Don’t bother.",
-    "Today’s weather means your hands are colder than the beer you’re drinking. Worth it."]
-    
+    "Today’s weather means your hands are colder than the beer you’re drinking. Worth it."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
@@ -266,8 +288,7 @@ function getAColorText(temp) {
   else if (temp < 20) {
     var colorTextArr = ["It’s Summer! ...somewhere else. Far away. Not here.",
     "Today’s weather is colder than the cold, icy heart you pretend you don’t have.",
-    "Today is the cold, bleak grip of a death eater. All day."]
-    
+    "Today is the cold, bleak grip of a death eater. All day."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
