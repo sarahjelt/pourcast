@@ -40,6 +40,12 @@ p {
 	font-weight: 800;
 }
 
+.brewery {
+	font-size: 21px;
+	font-weight: 400;
+	font-style: italic;
+}
+
 .counter {
 	font-size: 20px;
 	margin: 5px;
