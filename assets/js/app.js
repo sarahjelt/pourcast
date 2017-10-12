@@ -94,9 +94,6 @@ $(".submit").on("click", function(event) {
     console.log(response.location.zip + "is working");
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
-<<<<<<< HEAD
-
-    getABeer(weatherIcon);
 
     if (weatherIcon === "tstorms" || weatherIcon === "rain") {
       getARainText();
@@ -105,11 +102,9 @@ $(".submit").on("click", function(event) {
     else {
       getAColorText(highTemp);
     }
-
-=======
+    
     getABeer(weatherIcon);
-    getAColorText(highTemp);
->>>>>>> e65b8065c76635a24ea92bd00c563b087d7ac1fa
+
     })
 });
 
