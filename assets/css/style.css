@@ -7,16 +7,16 @@
 	src: url('../fonts/digital-7.regular.ttf');
 }
 
-/*body {
-	background-color: black;
-}*/
+body {
+	background: url('../images/cloudy-day.png');
+}
 
 h1 {
 	font-family: 'digital-clock-font', sans-serif;
 	font-size: 76px;
-	color: green;
+	color: darkred;
 	text-align: center;
-	text-shadow: 1px 1px 10px #1aff1a;
+	text-shadow: 1px 1px 10px red;
 }
 
 div {
@@ -32,11 +32,18 @@ p {
 	border: 3px solid darkgray;
 	border-radius: 10px;
 	margin: 5% 2% 5% 2%;
+	background-color: white;
 }
 
 .zippo, .beero {
 	font-size: 24px;
 	font-weight: 800;
+}
+
+.brewery {
+	font-size: 21px;
+	font-weight: 400;
+	font-style: italic;
 }
 
 .counter {

@@ -65,16 +65,16 @@ var recommendationsObj = {
   }]
 }
 
-//when you submit zip code, set that zip in localstorage and 
+//when you submit zip code, set that zip in localstorage and rec new beer
 $(".submit").on("click", function(event) {
   var zip = $(".zippy").val().trim();
-  var beer = recommendationsObj.pairs[weatherKey].beer;
   event.preventDefault();
 
   localStorage.clear();
   localStorage.setItem("zip", zip);
 
   $(".weather").empty();
+  $(".beer").empty();
   var queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
 
   $.ajax({
@@ -88,14 +88,14 @@ $(".submit").on("click", function(event) {
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
     console.log(results.fcttext);
-    getABeer(weatherIcon);
-    getAColorText(highTemp);
 
     $(".weather").append(zippy);
     zippy.html(response.location.zip);
     console.log(response.location.zip + "is working");
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
+    getABeer(weatherIcon);
+    getAColorText(highTemp);
     })
 });
 
@@ -176,7 +176,7 @@ function getABeer(val1) {
     }
 
     var beerPrint = $("<p class='beero'>");
-    var beerBrewery = $("<p>");
+    var beerBrewery = $("<p class='brewery'>");
     var beerInfo = $("<p>");
     var beerLabel = $("<img>");
     $(".beer").append(beerPrint);
@@ -184,7 +184,7 @@ function getABeer(val1) {
     $(".beer").append(beerBrewery);
     beerBrewery.html(brewery);
     $(".beer").append(beerInfo);
-    beerInfo.html(description + "<br>" + abv + "%");
+    beerInfo.html(description + "<br>" + abv + " % ABV");
     beerLabel.attr("src", label).addClass("img-responsive beer-label");
     $(".beer").append(beerLabel);
 
@@ -308,9 +308,28 @@ function sendBeerToFire(beer, descript, abv, brewery) {
   beersRef.push(beerObj); 
 
   database.ref().on("child_added", function(snapshot) {
-    var children = snapshot.numChildren();
-    console.log("number of beers in the database: " + children);
+    var kiddo = snapshot.numChildren();
+    console.log(kiddo);
+    console.log("number of beers in the database: " + kiddo);
+      console.log(snapshot.val());
+    $(".odometer").text(kiddo);
 
-    $(".odometer").text(children);
+    $('.table').prepend("<tr><td></td><td></td><td></td></tr>");
+
+      var firstRowTds = $("table")
+        .children()
+        .eq(1)
+        .children("tr")
+        .eq(0)
+        .children("td");
+
+      firstRowTds.eq(0).text(snapshot.val().beer);
+        console.log(snapshot.val().beer);
+      firstRowTds.eq(1).text(snapshot.val().brewery);
+        console.log(snapshot.val().brewery);
+      firstRowTds.eq(2).text(snapshot.val().abv);
+        console.log(snapshot.val().abv);
   })
 }
+
+
