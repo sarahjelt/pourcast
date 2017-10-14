@@ -18,9 +18,9 @@
       <div class="zip-input">
         <form>
           <input class="zippy" type="number" placeholder="ZIP code" maxlength="5">
-          <input onclick="zipVal()" class="submit btn btn-md" type="submit">
+          <input class="submit btn btn-md" type="submit">
         </form>
-        <p><button onclick="geoFindMe()">Use my location</button></p>
+        <!-- <p><button onclick="geoFindMe()">Use my location</button></p> -->
         <div id="out"></div>
       </div>
     </div> <!-- end row 1 -->
@@ -40,16 +40,13 @@
       </div>
     </div> <!-- end row 3 -->
     <div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><strong>Top Articles</strong></h3>
-      </div>
-      <div class="panel-body" id="well-section">
+      <div class="col-lg-12">
+        <div class="news">
+          <p><strong>Top Articles</strong></p>
+          <div class="panel-body" id="well-section"></div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     <div class="row table-count">
       <div class="sticky">
         <p><strong>Number of beers recommended:</strong></p>
