@@ -68,6 +68,7 @@ var recommendationsObj = {
 //when you submit zip code, set that zip in localstorage and rec new beer
 $(".submit").on("click", function(event) {
   var zip = $(".zippy").val().trim();
+  console.log(zip);
   event.preventDefault();
 
   localStorage.clear();
@@ -111,9 +112,9 @@ function weather() {
   var queryURL
 
   if (!localStorage.getItem("zip")) {
-    getYourLocation();
+    // getYourLocation();
     var zip = $(".zippy").val().trim();
-    queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("geoZip") + ".json";
+    queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
   } 
 
   else if (localStorage.getItem("zip").length === 5) {
@@ -125,11 +126,14 @@ function weather() {
       method: 'GET'
     })
   .done(function(response) {
+    
+    console.log(response);
     var results = response.forecast.txt_forecast.forecastday[0];
     var zippy = $("<p class='zippo'>");
     var weatherInfo = $("<p>");
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
+
 
     $(".weather").append(zippy);
     zippy.text(response.location.zip);
@@ -435,31 +439,31 @@ $("#spotify").empty();
 }
 
 // Geolocator API to automatically populate with your local zip code. 
-function getYourLocation() {
-  var queryURL = "https://ip-api.com/json"
+// function getYourLocation() {
+//   var queryURL = "https://ip-api.com/json"
 
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).done(function(pizza) {
-    console.log(pizza);
-    var autoZippy = pizza.zip;
-    console.log(autoZippy);
+//   $.ajax({
+//     url: queryURL,
+//     method: "GET"
+//   }).done(function(pizza) {
+//     console.log(pizza);
+//     var autoZippy = pizza.zip;
+//     console.log(autoZippy);
 
-    localStorage.clear();
-    localStorage.setItem("geoZip", autoZippy);
+//     localStorage.clear();
+//     localStorage.setItem("geoZip", autoZippy);
 
-    if (autoZippy === "") {
-      autoZippy = "90210";
-      console.log(autoZippy);
+//     if (autoZippy === "") {
+//       autoZippy = "90210";
+//       console.log(autoZippy);
 
-      localStorage.clear();
-      localStorage.setItem("geoZip", autoZippy);
-    }
-  })
-}
+//       localStorage.clear();
+//       localStorage.setItem("geoZip", autoZippy);
+//     }
+//   })
+// }
 
-getYourLocation();
+// getYourLocation();
 
 // $(document).ready(function () {
 //   console.log("NYT works");
@@ -520,6 +524,7 @@ function zipVal() {
     // warning.text(pText);
     // modal.append(warning);
     modal.css("display", "block");
+    $(".zippy").val("");
   }
 
   // When the user clicks on <span> (x), close the modal
@@ -527,7 +532,5 @@ function zipVal() {
     // warning.html("");
     modal.style.display = "none";
   }
-  
-  $(".zippy").val("");
 }
 
