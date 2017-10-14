@@ -512,7 +512,7 @@ function zipVal() {
   // Get the <span> element that closes the modal
   var span = $(".close");
 
-  if (code.length !== 5) {
+  if (code.length !== 5 || code.indexOf('e') || code.indexOf('-') || code.indexOf('+')) {
     // warning.text(pText);
     // modal.append(warning);
     modal.css("display", "block");
