@@ -68,11 +68,32 @@ var recommendationsObj = {
 //when you submit zip code, set that zip in localstorage and rec new beer
 $(".submit").on("click", function(event) {
   var zip = $(".zippy").val().trim();
+  var code = $(".zippy").val().trim();
+
+  var modal = $("#myModal");
+
+  // Get the <span> element that closes the modal
+  var span = $(".close");
+
   console.log(zip);
   event.preventDefault();
 
   localStorage.clear();
   localStorage.setItem("zip", zip);
+
+  if (zip === "") {
+      zip = "90210";
+      console.log(zip);
+
+      localStorage.clear();
+      localStorage.setItem("zip", zip);
+    } else if (zip.length !== 5) {
+      zip = "90210";
+      console.log(zip);
+
+      localStorage.clear();
+      localStorage.setItem("zip", zip);
+    }
 
   $(".weather").empty();
   $(".beer").empty();
@@ -106,6 +127,18 @@ $(".submit").on("click", function(event) {
     getABeer(weatherIcon);
     playSpotify(weatherIcon);
     })
+
+  if (code.length !== 5) {
+    modal.css("display", "block");
+    $(".zippy").val("");
+    console.log("i don't understand you");
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    // warning.html("");
+    modal.style.display = "none";
+  }
 });
 
 function weather() {
@@ -354,7 +387,7 @@ function sendBeerToFire(beer, descript, abv, brewery) {
 
       firstRowTds.eq(0).text(childSnapshot.val().beer);
       firstRowTds.eq(1).text(childSnapshot.val().brewery);
-      firstRowTds.eq(2).text(childSnapshot.val().abv);
+      firstRowTds.eq(2).text(childSnapshot.val().abv + " %");
   })
 }
 
@@ -502,23 +535,4 @@ url += '?' + $.param({
 
 });
 
-//zip validation functionality
-function zipVal() {
-  var code = $(".zippy").val().trim();
-  var modal = $("#myModal");
-
-  // Get the <span> element that closes the modal
-  var span = $(".close");
-
-  if (code.length !== 5 || code.indexOf('e') || code.indexOf('-') || code.indexOf('+')) {
-    modal.css("display", "block");
-    $(".zippy").val("");
-  }
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    // warning.html("");
-    modal.style.display = "none";
-  }
-}
 

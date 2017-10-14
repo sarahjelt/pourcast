@@ -43,7 +43,7 @@ td {
 	background-color: white;
 }
 
-.weather, .beer, .music, .table-count {
+.weather, .beer, .music, .table-count, .news {
 	border: 3px solid darkgray;
 	border-radius: 10px;
 	margin: 5% 2% 5% 2%;
