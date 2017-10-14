@@ -185,7 +185,7 @@ function weather() {
     }
   })
 }
-// calling this after the getYourLocation for testing -lw 
+
 weather();
 
 function getABeer(val1) {
@@ -262,6 +262,7 @@ function getARainText() {
 
   var pColorText = $("<p>");
   pColorText.text(weatherText).appendTo(".weather");
+  transitionLang()
 }
 
 function getAColorText(temp) {
@@ -337,8 +338,15 @@ function getAColorText(temp) {
 
   var pColorText = $("<p>");
   pColorText.text(weatherText).appendTo(".weather");
+  transitionLang()
 }
 
+function transitionLang() {
+  var pTag = $("<p>");
+  var pText = "Whoa, what a weather. You should try pairing your forecast with this beer and playlist:"
+
+  pTag.text(pText).appendTo(".weather");
+}
 ////////// Initializes Firebase
 
 var config = {
@@ -391,29 +399,29 @@ function sendBeerToFire(beer, descript, abv, brewery) {
   })
 }
 
-function geoFindMe() {
-  var output = document.getElementById("out");
+// function geoFindMe() {
+//   var output = document.getElementById("out");
 
-  if (!navigator.geolocation){
-    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-    return;
-  }
+//   if (!navigator.geolocation){
+//     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+//     return;
+//   }
 
-  function success(position) {
-    var latitude  = position.coords.latitude;
-    var longitude = position.coords.longitude;
+//   function success(position) {
+//     var latitude  = position.coords.latitude;
+//     var longitude = position.coords.longitude;
 
-    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-  }
+//     output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+//   }
 
-  function error() {
-    output.innerHTML = "Unable to retrieve your location";
-  }
+//   function error() {
+//     output.innerHTML = "Unable to retrieve your location";
+//   }
 
-  output.innerHTML = "<p>Locating…</p>";
+//   output.innerHTML = "<p>Locating…</p>";
 
-  navigator.geolocation.getCurrentPosition(success, error);
-}
+//   navigator.geolocation.getCurrentPosition(success, error);
+// }
 
 function playSpotify(icon) { 
   var cloudyPlaylist = ["cloudy", "fog", "hazy", "nt_chancetstorms"]
