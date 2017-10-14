@@ -409,7 +409,8 @@ function playSpotify(icon) {
   var unknownPlaylist = ["unknown"]
   var unknownPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11173244841:playlist:0T7TZgUDT14o7fmWGrzvHk"]
 
-  $(".music").empty();
+
+$("#spotify").empty();
 
   if (cloudyPlaylist.indexOf(icon) !== -1) {
     playlist = cloundyPlaylistSrc;
@@ -435,7 +436,7 @@ function playSpotify(icon) {
 
 // Geolocator API to automatically populate with your local zip code. 
 function getYourLocation() {
-  var queryURL = "http://ip-api.com/json"
+  var queryURL = "https://ip-api.com/json"
 
   $.ajax({
     url: queryURL,
@@ -505,4 +506,28 @@ getYourLocation();
 
 // });
 
+//zip validation functionality
+function zipVal() {
+  var code = $(".zippy").val().trim();
+  var modal = $("#myModal");
+  // var warning = $("<p class='warning'>");
+  // var pText = "Please insert a valid 5-digit ZIP code.";
+
+  // Get the <span> element that closes the modal
+  var span = $(".close");
+
+  if (code.length !== 5) {
+    // warning.text(pText);
+    // modal.append(warning);
+    modal.css("display", "block");
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    // warning.html("");
+    modal.style.display = "none";
+  }
+  
+  $(".zippy").val("");
+}
 

@@ -17,8 +17,8 @@
     <div class="row">
       <div class="zip-input">
         <form>
-          <input class="zippy" type="number" placeholder="ZIP code">
-          <input class="submit btn btn-md buttonStyle" type="submit">
+          <input class="zippy" type="number" placeholder="ZIP code" maxlength="5">
+          <input onclick="zipVal()" class="submit" type="submit">
         </form>
         <p><button onclick="geoFindMe()">Use my location</button></p>
         <div id="out"></div>
@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="music">
-         <iframe id= "spotify" src="playlist" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+          <iframe id="spotify" src="playlist" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
         </div>
       </div>
       <div class="col-md-6">
@@ -67,6 +67,10 @@
         </tbody>
       </table>
     </div> <!-- end row 4 -->
+    <div id="myModal" class="modal">
+      <p class="warning">Please use a valid 5-digit ZIP code.</p>
+      <span class="close" onclick="document.getElementById('myModal').style.display='none'">×</span>
+    </div>
   </div> <!-- end main container -->
 
 <script src="assets/js/odometer.min.js"></script>
