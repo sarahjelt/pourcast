@@ -28,6 +28,10 @@ p {
 	font-size: 18px;
 }
 
+td {
+	text-align: center;
+}
+
 .weather, .beer, .music, .table-count {
 	border: 3px solid darkgray;
 	border-radius: 10px;
