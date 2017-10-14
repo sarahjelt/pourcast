@@ -465,50 +465,42 @@ $("#spotify").empty();
 
 // getYourLocation();
 
-// $(document).ready(function () {
-//   console.log("NYT works");
-//   var url = "https://api.nytimes.com/svc/topstories/v2/home.json";
-// url += '?' + $.param({
-//   'api-key': "c9018bad76144ca0a408994b54795e18"
-// });
-//   var numArticles = 5
-//   $.ajax({
-//   url: url,
-//   method: 'GET',
-// }).done(function(results) {
-//   console.log("------------------");
-//   console.log(url);
-//   console.log("------------------");
-//   console.log(numArticles);
-//   console.log(results);
-//   $("#well-section").empty();
-//   for (var i = 0; i < numArticles; i++) {
-//     var wellSection = $("<div>");
-//     wellSection.addClass("well");
-//     wellSection.attr("id", "article-well-" + i);
-//     $("#well-section").append(wellSection);
-//     if (results.response.docs[i].section !== "null") {
-//         console.log(results.response.docs[i].section.main);
-//         $("#article-well-" + i)
-//           .append("<h3>" + results.response.docs[i].section.main + "</h3>");}
-//      if (results.response.docs[i].byline && results.response.docs[i].byline.original) {
-//         console.log(results.response.docs[i].byline.original);
-//           $("#article-well-" + i).append("<h5>" + results.response.docs[i].byline.original + "</h5>");}
-//           $("#article-well-" + i).append("<h5>" + results.response.docs[i].section_name + "</h5>");
-//           $("#article-well-" + i).append("<h5>" + results.response.docs[i].pub_date + "</h5>");
-//           $("#article-well-" + i)
-//         .append(
-//           "<a href=" + results.response.docs[i].web_url + ">" +
-//           results.response.docs[i].web_url + "</a>"
-//         );
+$(document).ready(function () {
+  console.log("NYT works");
+  var url = "https://api.nytimes.com/svc/topstories/v2/home.json";
+url += '?' + $.param({
+  'api-key': "c9018bad76144ca0a408994b54795e18"
+});
+  var numArticles = 5
+  $.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(results) {
+  console.log("------------------");
+  console.log(url);
+  console.log("------------------");
+  console.log(numArticles);
+  console.log(results);
+  $("#well-section").empty();
+  for (var i = 0; i < numArticles; i++) {
+    var wellSection = $("<div>");
+    wellSection.addClass("well");
+    wellSection.attr("id", "well-section-" + i);
+    $("#well-section").append(wellSection);
+    if (results.section.home !== "null") {
+        console.log('here', results.results[i]);
+        $("#well-section" + i)
+          .append("<panel-body>" + results.section + "<panel-body>");}
+    
+          $("#well-section-" + i).append("<panel-body>" + results.results[i].title + "</panel-heading>");
+          $("#well-section-" + i).append("<panel-body>" + results.results[i].abstract + "</panel-body>");
+          $("#well-section-" + i).append("<panel-body>" + results.results[i].byline + "</panel-body>");
+          $("#well-section-" + i).append("<panel-body>" + results.results[i].url + "</panel-body>");
+     
+    }
+});
 
-//       console.log(results.response.docs[i].section_name);
-//       console.log(results.response.docs[i].pub_date);
-//       console.log(results.response.docs[i].web_url);
-//     }
-// });
-
-// });
+});
 
 //zip validation functionality
 function zipVal() {
