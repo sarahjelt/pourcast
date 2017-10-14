@@ -87,8 +87,6 @@ $(".submit").on("click", function(event) {
     var weatherInfo = $("<p>");
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
-    console.log(results.fcttext);
-    console.log(weatherIcon);
 
     $(".weather").append(zippy);
     zippy.html(response.location.zip);
@@ -106,15 +104,22 @@ $(".submit").on("click", function(event) {
     
     getABeer(weatherIcon);
     playSpotify(weatherIcon);
-
     })
 });
 
 function weather() {
-  if (localStorage.getItem("zip").length === 5) {
+  var queryURL
+
+  if (!localStorage.getItem("zip")) {
+    getYourLocation();
     var zip = $(".zippy").val().trim();
-    var queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
-    
+    queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("geoZip") + ".json";
+  } 
+
+  else if (localStorage.getItem("zip").length === 5) {
+    queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
+  }
+
     $.ajax({
       url: queryURL,
       method: 'GET'
@@ -125,7 +130,6 @@ function weather() {
     var weatherInfo = $("<p>");
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
-    console.log(weatherIcon);
 
     $(".weather").append(zippy);
     zippy.text(response.location.zip);
@@ -133,6 +137,7 @@ function weather() {
     weatherInfo.text(results.fcttext);
 
     getABeer(weatherIcon);
+    playSpotify(weatherIcon);
 
     if (weatherIcon === "tstorms" || weatherIcon === "rain") {
       getARainText();
@@ -141,10 +146,9 @@ function weather() {
     else {
       getAColorText(highTemp);
     }
-    })
-  }
+  })
 }
-
+// calling this after the getYourLocation for testing -lw 
 weather();
 
 function getABeer(val1) {
@@ -166,7 +170,6 @@ function getABeer(val1) {
     method: "GET"
   }).done(function(cheese) {
     var randomBeerArrNum = Math.floor(Math.random() * 50);
-    console.log(cheese);
 
     var beerName = cheese.data[randomBeerArrNum].name;
     var brewery = cheese.data[randomBeerArrNum].breweries[0].name;
@@ -220,7 +223,6 @@ function getARainText() {
   var random = Math.floor(Math.random() * colorTextArr.length);
   var weatherText = colorTextArr[random];
 
-  console.log(weatherText);
   var pColorText = $("<p>");
   pColorText.text(weatherText).appendTo(".weather");
 }
@@ -296,7 +298,6 @@ function getAColorText(temp) {
     var weatherText = colorTextArr[random];
   }
 
-  console.log(weatherText);
   var pColorText = $("<p>");
   pColorText.text(weatherText).appendTo(".weather");
 }
@@ -333,9 +334,6 @@ function sendBeerToFire(beer, descript, abv, brewery) {
 
   database.ref().on("child_added", function(snapshot) {
     var kiddo = snapshot.numChildren();
-    console.log(kiddo);
-    console.log("number of beers in the database: " + kiddo);
-    console.log(snapshot.child("beers").key);
     $(".odometer").text(kiddo);
   });
 
@@ -351,11 +349,8 @@ function sendBeerToFire(beer, descript, abv, brewery) {
         .children("td");
 
       firstRowTds.eq(0).text(childSnapshot.val().beer);
-        console.log(childSnapshot.val().beer);
       firstRowTds.eq(1).text(childSnapshot.val().brewery);
-        console.log(childSnapshot.val().brewery);
       firstRowTds.eq(2).text(childSnapshot.val().abv);
-        console.log(childSnapshot.val().abv);
   })
 }
 
@@ -384,64 +379,87 @@ function geoFindMe() {
 }
 
 function playSpotify(icon) { 
-var cloudyPlaylist = ["cloudy", "fog", "hazy", "nt_chancetstorms"]
-var cloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:shelbysatt:playlist:1zSs9BHKuMLjhsPKEyIYiT"]
+  var cloudyPlaylist = ["cloudy", "fog", "hazy", "nt_chancetstorms"]
+  var cloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:shelbysatt:playlist:1zSs9BHKuMLjhsPKEyIYiT"]
 
-var clearPlaylist = ["sunny", "clear"]
-var clearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:chloeszep:playlist:2WbnT6KIaCyPhvT7FjGkhj"]
-
-
-var stormyPlaylist = ["tstorms", "chancetstorms",]
-var stormyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX2pSTOxoPbx9"]
+  var clearPlaylist = ["sunny", "clear"]
+  var clearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:chloeszep:playlist:2WbnT6KIaCyPhvT7FjGkhj"]
 
 
-var snowPlaylist = ["snow", "chanceflurries", "chancesleet", "chancesnow", "flurries", "sleet"]
-var snowPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11135485325:playlist:1UOKjxsR4Kcauv8oUYtNzO"]
+  var stormyPlaylist = ["tstorms", "chancetstorms",]
+  var stormyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX2pSTOxoPbx9"]
 
 
-var mocloudyPlaylist = ["mostlycloudy"]
-var mocloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:1276682885:playlist:2TtL9oWZuTDciLtqlrjgQh"]
+  var snowPlaylist = ["snow", "chanceflurries", "chancesleet", "chancesnow", "flurries", "sleet"]
+  var snowPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11135485325:playlist:1UOKjxsR4Kcauv8oUYtNzO"]
 
 
-var moclearPlaylist = ["mostlysunny", "partlycloudy", "partlysunny"]
-var moclearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWX1vYQSk2Qrd"]
+  var mocloudyPlaylist = ["mostlycloudy"]
+  var mocloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:1276682885:playlist:2TtL9oWZuTDciLtqlrjgQh"]
 
 
-var rainPlaylist = ["rain", "chancerain"]
-var rainPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DXbvABJXBIyiY"]
+  var moclearPlaylist = ["mostlysunny", "partlycloudy", "partlysunny"]
+  var moclearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWX1vYQSk2Qrd"]
 
 
-var unknownPlaylist = ["unknown"]
-var unknownPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11173244841:playlist:0T7TZgUDT14o7fmWGrzvHk"]
+  var rainPlaylist = ["rain", "chancerain"]
+  var rainPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DXbvABJXBIyiY"]
 
-// var icon = response.icon;
-console.log(icon);
+
+  var unknownPlaylist = ["unknown"]
+  var unknownPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11173244841:playlist:0T7TZgUDT14o7fmWGrzvHk"]
+
 
 $("#spotify").empty();
 
-if (cloudyPlaylist.indexOf(icon) !== -1) {
-  playlist = cloundyPlaylistSrc;
-} else if (clearPlaylist.indexOf(icon) !== -1) {
-  playlist = clearPlaylistSrc;
-} else if (stormyPlaylist.indexOf(icon) !== -1) {
-  playlist = stormyPlaylistSrc;
-} else if (snowPlaylist.indexOf(icon) !== -1) {
-  playlist = snowPlaylistSrc;
-} else if (mocloudyPlaylist.indexOf(icon) !== -1) {
-  playlist = mocloudyPlaylistSrc;
-} else if (moclearPlaylist.indexOf(icon) !== -1) {
-  playlist = moclearPlaylistSrc;
-} else if (rainPlaylist.indexOf(icon) !== -1) {
-  playlist = rainPlaylistSrc;
-} else {
-  playlist = unknownPlaylistSrc;
+  if (cloudyPlaylist.indexOf(icon) !== -1) {
+    playlist = cloundyPlaylistSrc;
+  } else if (clearPlaylist.indexOf(icon) !== -1) {
+    playlist = clearPlaylistSrc;
+  } else if (stormyPlaylist.indexOf(icon) !== -1) {
+    playlist = stormyPlaylistSrc;
+  } else if (snowPlaylist.indexOf(icon) !== -1) {
+    playlist = snowPlaylistSrc;
+  } else if (mocloudyPlaylist.indexOf(icon) !== -1) {
+    playlist = mocloudyPlaylistSrc;
+  } else if (moclearPlaylist.indexOf(icon) !== -1) {
+    playlist = moclearPlaylistSrc;
+  } else if (rainPlaylist.indexOf(icon) !== -1) {
+    playlist = rainPlaylistSrc;
+  } else {
+    playlist = unknownPlaylistSrc;
+  }
+
+  $("#spotify").attr("src", playlist);
+
 }
 
-$("#spotify").attr("src", playlist);
+// Geolocator API to automatically populate with your local zip code. 
+function getYourLocation() {
+  var queryURL = "http://ip-api.com/json"
 
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).done(function(pizza) {
+    console.log(pizza);
+    var autoZippy = pizza.zip;
+    console.log(autoZippy);
+
+    localStorage.clear();
+    localStorage.setItem("geoZip", autoZippy);
+
+    if (autoZippy === "") {
+      autoZippy = "90210";
+      console.log(autoZippy);
+
+      localStorage.clear();
+      localStorage.setItem("geoZip", autoZippy);
+    }
+  })
 }
 
-
+getYourLocation();
 
 // $(document).ready(function () {
 //   console.log("NYT works");

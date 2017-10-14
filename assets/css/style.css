@@ -8,7 +8,9 @@
 }
 
 body {
-	background: url('../images/cloudy-day.png');
+	/*background: url('../images/cloudy-day.png');*/
+	background: linear-gradient(to bottom right, #84c1ff, #ffd050);
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
 h1 {
@@ -77,7 +79,6 @@ td {
 	padding-right: 50px;
 }
 
-
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -132,4 +133,27 @@ td {
 .warning {
 	font-size: 32px;
 	color: white;
+}
+
+.zippy {
+	border-bottom: 3px solid #8b2617;
+	border-top: transparent;
+	border-right: transparent;
+	border-left: transparent;
+	padding: 10px;
+	background-color: transparent;
+}
+
+.zippy:focus {
+	outline: none;
+	background-color: rgba(255, 255, 255, 0.55);
+}
+
+input#buttonStyle {
+	background-color: white;
+	color: black;
+}
+
+input#buttonStyle:focus {
+	background-color: pink;
 }
