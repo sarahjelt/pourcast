@@ -31,18 +31,31 @@ p {
 }
 
 /*.weather, .beer, .music, .table-count {
+td {
+	text-align: left;
+}
+
+.sticky {
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	background-color: white;
+}
+
+.weather, .beer, .music, .table-count {
 	border: 3px solid darkgray;
 	border-radius: 10px;
 	margin: 5% 2% 5% 2%;
 	background-color: white;
 }*/
 
-.weather, .beer, .music, .table-count {
-	border: none;
-	border-radius: 4px;
-	background-color: rgba(255, 255, 255, 0.55);
-	margin: 5% 2%;
-	font-family: 'Roboto Condensed', sans-serif;
+.table-count {
+	overflow-y: scroll;
+	max-height: 25vh;
+	position: relative;
+
 }
 
 .zippo, .beero {
@@ -58,7 +71,7 @@ p {
 
 .counter {
 	font-size: 20px;
-	margin: 5px;
+	margin: 5px 5px 12px 5px;
 }
 
 .beer-label {
