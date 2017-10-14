@@ -88,6 +88,7 @@ $(".submit").on("click", function(event) {
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
     console.log(results.fcttext);
+    console.log(weatherIcon);
 
     $(".weather").append(zippy);
     zippy.html(response.location.zip);
@@ -104,6 +105,7 @@ $(".submit").on("click", function(event) {
     }
     
     getABeer(weatherIcon);
+    playSpotify(weatherIcon);
 
     })
 });
@@ -123,6 +125,7 @@ function weather() {
     var weatherInfo = $("<p>");
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
+    console.log(weatherIcon);
 
     $(".weather").append(zippy);
     zippy.text(response.location.zip);
@@ -353,6 +356,136 @@ function sendBeerToFire(beer, descript, abv, brewery) {
         console.log(childSnapshot.val().brewery);
       firstRowTds.eq(2).text(childSnapshot.val().abv);
         console.log(childSnapshot.val().abv);
-    // })
   })
 }
+
+function geoFindMe() {
+  var output = document.getElementById("out");
+
+  if (!navigator.geolocation){
+    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+    return;
+  }
+
+  function success(position) {
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+  }
+
+  function error() {
+    output.innerHTML = "Unable to retrieve your location";
+  }
+
+  output.innerHTML = "<p>Locating…</p>";
+
+  navigator.geolocation.getCurrentPosition(success, error);
+}
+
+function playSpotify(icon) { 
+var cloudyPlaylist = ["cloudy", "fog", "hazy", "nt_chancetstorms"]
+var cloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:shelbysatt:playlist:1zSs9BHKuMLjhsPKEyIYiT"]
+
+var clearPlaylist = ["sunny", "clear"]
+var clearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:chloeszep:playlist:2WbnT6KIaCyPhvT7FjGkhj"]
+
+
+var stormyPlaylist = ["tstorms", "chancetstorms",]
+var stormyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX2pSTOxoPbx9"]
+
+
+var snowPlaylist = ["snow", "chanceflurries", "chancesleet", "chancesnow", "flurries", "sleet"]
+var snowPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11135485325:playlist:1UOKjxsR4Kcauv8oUYtNzO"]
+
+
+var mocloudyPlaylist = ["mostlycloudy"]
+var mocloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:1276682885:playlist:2TtL9oWZuTDciLtqlrjgQh"]
+
+
+var moclearPlaylist = ["mostlysunny", "partlycloudy", "partlysunny"]
+var moclearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWX1vYQSk2Qrd"]
+
+
+var rainPlaylist = ["rain", "chancerain"]
+var rainPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DXbvABJXBIyiY"]
+
+
+var unknownPlaylist = ["unknown"]
+var unknownPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11173244841:playlist:0T7TZgUDT14o7fmWGrzvHk"]
+
+// var icon = response.icon;
+console.log(icon);
+
+$(".music").empty();
+
+if (cloudyPlaylist.indexOf(icon) !== -1) {
+  playlist = cloundyPlaylistSrc;
+} else if (clearPlaylist.indexOf(icon) !== -1) {
+  playlist = clearPlaylistSrc;
+} else if (stormyPlaylist.indexOf(icon) !== -1) {
+  playlist = stormyPlaylistSrc;
+} else if (snowPlaylist.indexOf(icon) !== -1) {
+  playlist = snowPlaylistSrc;
+} else if (mocloudyPlaylist.indexOf(icon) !== -1) {
+  playlist = mocloudyPlaylistSrc;
+} else if (moclearPlaylist.indexOf(icon) !== -1) {
+  playlist = moclearPlaylistSrc;
+} else if (rainPlaylist.indexOf(icon) !== -1) {
+  playlist = rainPlaylistSrc;
+} else {
+  playlist = unknownPlaylistSrc;
+}
+
+$("#spotify").attr("src", playlist);
+
+}
+
+
+
+// $(document).ready(function () {
+//   console.log("NYT works");
+//   var url = "https://api.nytimes.com/svc/topstories/v2/home.json";
+// url += '?' + $.param({
+//   'api-key': "c9018bad76144ca0a408994b54795e18"
+// });
+//   var numArticles = 5
+//   $.ajax({
+//   url: url,
+//   method: 'GET',
+// }).done(function(results) {
+//   console.log("------------------");
+//   console.log(url);
+//   console.log("------------------");
+//   console.log(numArticles);
+//   console.log(results);
+//   $("#well-section").empty();
+//   for (var i = 0; i < numArticles; i++) {
+//     var wellSection = $("<div>");
+//     wellSection.addClass("well");
+//     wellSection.attr("id", "article-well-" + i);
+//     $("#well-section").append(wellSection);
+//     if (results.response.docs[i].section !== "null") {
+//         console.log(results.response.docs[i].section.main);
+//         $("#article-well-" + i)
+//           .append("<h3>" + results.response.docs[i].section.main + "</h3>");}
+//      if (results.response.docs[i].byline && results.response.docs[i].byline.original) {
+//         console.log(results.response.docs[i].byline.original);
+//           $("#article-well-" + i).append("<h5>" + results.response.docs[i].byline.original + "</h5>");}
+//           $("#article-well-" + i).append("<h5>" + results.response.docs[i].section_name + "</h5>");
+//           $("#article-well-" + i).append("<h5>" + results.response.docs[i].pub_date + "</h5>");
+//           $("#article-well-" + i)
+//         .append(
+//           "<a href=" + results.response.docs[i].web_url + ">" +
+//           results.response.docs[i].web_url + "</a>"
+//         );
+
+//       console.log(results.response.docs[i].section_name);
+//       console.log(results.response.docs[i].pub_date);
+//       console.log(results.response.docs[i].web_url);
+//     }
+// });
+
+// });
+
+
