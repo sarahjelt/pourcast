@@ -8,7 +8,9 @@
 }
 
 body {
-	background: url('../images/cloudy-day.png');
+	/*background: url('../images/cloudy-day.png');*/
+	background: linear-gradient(to bottom right, #84c1ff, #ffd050);
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
 h1 {
@@ -28,11 +30,19 @@ p {
 	font-size: 18px;
 }
 
-.weather, .beer, .music, .table-count {
+/*.weather, .beer, .music, .table-count {
 	border: 3px solid darkgray;
 	border-radius: 10px;
 	margin: 5% 2% 5% 2%;
 	background-color: white;
+}*/
+
+.weather, .beer, .music, .table-count {
+	border: none;
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.55);
+	margin: 5% 2%;
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
 .zippo, .beero {
@@ -55,4 +65,27 @@ p {
 	width: 100%;
 	padding-left: 50px;
 	padding-right: 50px;
+}
+
+.zippy {
+	border-bottom: 3px solid #8b2617;
+	border-top: transparent;
+	border-right: transparent;
+	border-left: transparent;
+	padding: 10px;
+	background-color: transparent;
+}
+
+.zippy:focus {
+	outline: none;
+	background-color: rgba(255, 255, 255, 0.55);
+}
+
+input#buttonStyle {
+	background-color: white;
+	color: black;
+}
+
+input#buttonStyle:focus {
+	background-color: pink;
 }
