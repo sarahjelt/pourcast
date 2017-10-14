@@ -9,7 +9,7 @@
 
 body {
 	/*background: url('../images/cloudy-day.png');*/
-	background: linear-gradient(to bottom right, #84c1ff, #ffd050);
+	background: linear-gradient(to bottom right, #95d0cb, #d2b5ce);
 	font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -149,11 +149,11 @@ td {
 	background-color: rgba(255, 255, 255, 0.55);
 }
 
-input#buttonStyle {
-	background-color: white;
-	color: black;
+input.submit {
+	background-color: #e8c73a;
 }
 
-input#buttonStyle:focus {
-	background-color: pink;
+input.submit:hover {
+	background-color: #FDDE5B;
+	transition: all 0.5s;
 }
