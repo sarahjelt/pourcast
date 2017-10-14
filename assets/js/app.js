@@ -436,7 +436,7 @@ $("#spotify").empty();
 
 // Geolocator API to automatically populate with your local zip code. 
 function getYourLocation() {
-  var queryURL = "http://ip-api.com/json"
+  var queryURL = "https://ip-api.com/json"
 
   $.ajax({
     url: queryURL,
