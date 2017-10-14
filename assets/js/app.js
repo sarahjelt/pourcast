@@ -511,6 +511,8 @@ function zipVal() {
   var span = $(".close");
 
   if (code.length !== 5 || code.indexOf('e') || code.indexOf('-') || code.indexOf('+')) {
+  if (code.length !== 5) {
+
     modal.css("display", "block");
     $(".zippy").val("");
   }
