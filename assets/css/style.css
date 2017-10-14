@@ -29,7 +29,16 @@ p {
 }
 
 td {
-	text-align: center;
+	text-align: left;
+}
+
+.sticky {
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	background-color: white;
 }
 
 .weather, .beer, .music, .table-count {
@@ -37,6 +46,13 @@ td {
 	border-radius: 10px;
 	margin: 5% 2% 5% 2%;
 	background-color: white;
+}
+
+.table-count {
+	overflow-y: scroll;
+	max-height: 25vh;
+	position: relative;
+
 }
 
 .zippo, .beero {
@@ -52,7 +68,7 @@ td {
 
 .counter {
 	font-size: 20px;
-	margin: 5px;
+	margin: 5px 5px 12px 5px;
 }
 
 .beer-label {
