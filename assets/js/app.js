@@ -506,16 +506,11 @@ url += '?' + $.param({
 function zipVal() {
   var code = $(".zippy").val().trim();
   var modal = $("#myModal");
-  // var warning = $("<p class='warning'>");
-  // var pText = "Please insert a valid 5-digit ZIP code.";
 
   // Get the <span> element that closes the modal
   var span = $(".close");
 
-  if (code.length !== 5) {
-  // if (code.length !== 5 || code.indexOf('e') || code.indexOf('-') || code.indexOf('+')
-      // warning.text(pText);
-    // modal.append(warning);
+  if (code.length !== 5 || code.indexOf('e') || code.indexOf('-') || code.indexOf('+')) {
     modal.css("display", "block");
     $(".zippy").val("");
   }
