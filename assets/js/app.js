@@ -13,7 +13,7 @@ var recommendationsObj = {
     beer: ["cream stout"],
   }, {
     icon: "clear",
-    beer: ["saison", "sour", "shandy"],
+    beer: ["saison", "sour"],
   }, {
     icon: "mostlycloudy",
     beer: ["pumpkin ale"],
@@ -136,11 +136,11 @@ $(".submit").on("click", function(event) {
 
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
-    // warning.html("");
     modal.style.display = "none";
   }
 });
 
+// Function to determine the weather based on zip in local storage, for repeat visitors reloading page.
 function weather() {
   var queryURL
 
@@ -185,9 +185,10 @@ function weather() {
     }
   })
 }
-// calling this after the getYourLocation for testing -lw 
+
 weather();
 
+// Function to pull a beer from BreweryDB, passing weatherIcon as a parameter. 
 function getABeer(val1) {
   var weatherKey
 
@@ -252,6 +253,7 @@ function getABeer(val1) {
   })
 }
 
+// function to determine which colorful rain description we're applying to the forecast 
 function getARainText() {
   var colorTextArr = ["Rainboots go with everything today.", "Today's weather is wet feet. All day.",
   "Today all of your internal crying affected the universe and your own weak human tears are raining down on you. You need a beer.",
@@ -262,8 +264,10 @@ function getARainText() {
 
   var pColorText = $("<p>");
   pColorText.text(weatherText).appendTo(".weather");
+  transitionLang();
 }
 
+// Function to determine which colorful weather (based on temp) description we're applying to the forecast.
 function getAColorText(temp) {
   var weatherText 
 
@@ -284,19 +288,20 @@ function getAColorText(temp) {
 
   else if (temp >= 80 && temp < 90) {
     var colorTextArr = ["Today is undercooked fried eggs on the sidewalk. You’re still going to sweat.",
-    "Today is...still too hot."];
+    "Today is...too fucking hot. But maybe you're the one to like that light sweaty sheen on your clothes."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
 
   else if (temp >= 70 && temp < 80) {
-    var colorTextArr = ["Is it Spring? Is it Fall? Is it that weird winter day that reminds you global warming is real? I don’t know, but head outside anyway and report back."];  
+    var colorTextArr = ["Is it Spring? Is it Fall? Is it that weird winter day that reminds you global warming is real?",
+    "Your body might like it outside today.", "Whoa what a weather."];  
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
 
   else if (temp >= 60 && temp < 70) {
-    var colorTextArr = ["Do you need a jacket? Do you wear a sweater? A t-shirt? Who the fuck knows."];
+    var colorTextArr = ["Do you need a jacket? Do you wear a sweater? A t-shirt? Closet roulette."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
@@ -309,7 +314,8 @@ function getAColorText(temp) {
   }
 
   else if (temp >= 40 && temp < 50) {
-    var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."];
+    var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer.",
+    "Whoa, what a weather."];
     var random = Math.floor(Math.random() * colorTextArr.length)
     var weatherText = colorTextArr[random];
   }
@@ -337,10 +343,18 @@ function getAColorText(temp) {
 
   var pColorText = $("<p>");
   pColorText.text(weatherText).appendTo(".weather");
+  transitionLang();
+}
+
+// Function to put transitional language between weather, beer+playlist.
+function transitionLang() {
+  var pTag = $("<p>");
+  var pText = "We recommend pairing your forecast with this beer and playlist:"
+
+  pTag.text(pText).appendTo(".weather");
 }
 
 ////////// Initializes Firebase
-
 var config = {
     apiKey: "AIzaSyD8Ty6GU2c1yTwgvvS66r3Th5cM55HZEyA",
     authDomain: "project-one-c87a1.firebaseapp.com",
@@ -391,30 +405,31 @@ function sendBeerToFire(beer, descript, abv, brewery) {
   })
 }
 
-function geoFindMe() {
-  var output = document.getElementById("out");
+// function geoFindMe() {
+//   var output = document.getElementById("out");
 
-  if (!navigator.geolocation){
-    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-    return;
-  }
+//   if (!navigator.geolocation){
+//     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+//     return;
+//   }
 
-  function success(position) {
-    var latitude  = position.coords.latitude;
-    var longitude = position.coords.longitude;
+//   function success(position) {
+//     var latitude  = position.coords.latitude;
+//     var longitude = position.coords.longitude;
 
-    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-  }
+//     output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+//   }
 
-  function error() {
-    output.innerHTML = "Unable to retrieve your location";
-  }
+//   function error() {
+//     output.innerHTML = "Unable to retrieve your location";
+//   }
 
-  output.innerHTML = "<p>Locating…</p>";
+//   output.innerHTML = "<p>Locating…</p>";
 
-  navigator.geolocation.getCurrentPosition(success, error);
-}
+//   navigator.geolocation.getCurrentPosition(success, error);
+// }
 
+// Function to determine playlist based on weather, pop to DOM. Passes weatherIcon as a param.
 function playSpotify(icon) { 
   var cloudyPlaylist = ["cloudy", "fog", "hazy", "nt_chancetstorms"]
   var cloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:shelbysatt:playlist:1zSs9BHKuMLjhsPKEyIYiT"]
@@ -446,28 +461,36 @@ function playSpotify(icon) {
   var unknownPlaylist = ["unknown"]
   var unknownPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11173244841:playlist:0T7TZgUDT14o7fmWGrzvHk"]
 
-
-$("#spotify").empty();
+  $("#spotify").empty();
 
   if (cloudyPlaylist.indexOf(icon) !== -1) {
     playlist = cloundyPlaylistSrc;
+    playlistTitle = "Cloudy Day for a Beer Playlist"
   } else if (clearPlaylist.indexOf(icon) !== -1) {
     playlist = clearPlaylistSrc;
+    playlistTitle = "What a Clear Day for a Beer Playlist"
   } else if (stormyPlaylist.indexOf(icon) !== -1) {
     playlist = stormyPlaylistSrc;
+    playlistTitle = "Thunder and Lightning and Beer Playlist"
   } else if (snowPlaylist.indexOf(icon) !== -1) {
     playlist = snowPlaylistSrc;
+    playlistTitle = "It's a Snowy Beer Day Playlist"
   } else if (mocloudyPlaylist.indexOf(icon) !== -1) {
     playlist = mocloudyPlaylistSrc;
+    playlistTitle = "Mostly Cloudy Beer Playlist"
   } else if (moclearPlaylist.indexOf(icon) !== -1) {
     playlist = moclearPlaylistSrc;
+    playlistTitle = "What a Clear Day for a Beer Playlist"
   } else if (rainPlaylist.indexOf(icon) !== -1) {
     playlist = rainPlaylistSrc;
+    playlistTitle = "Rainy Days Deserve Beers and Playlists"
   } else {
     playlist = unknownPlaylistSrc;
+    playlistTitle = "It's the Apocalypse Maybe Playlist"
   }
 
   $("#spotify").attr("src", playlist);
+  $("<p>").text(playlistTitle).addClass("listo").prependTo(".music");
 
 }
 
@@ -509,30 +532,29 @@ url += '?' + $.param({
   url: url,
   method: 'GET',
 }).done(function(results) {
-  console.log("------------------");
-  console.log(url);
-  console.log("------------------");
-  console.log(numArticles);
-  console.log(results);
-  $("#well-section").empty();
-  for (var i = 0; i < numArticles; i++) {
-    var wellSection = $("<div>");
-    wellSection.addClass("well");
-    wellSection.attr("id", "well-section-" + i);
-    $("#well-section").append(wellSection);
-    if (results.section.home !== "null") {
+    console.log("------------------");
+    console.log(url);
+    console.log("------------------");
+    console.log(numArticles);
+    console.log(results);
+    $("#well-section").empty();
+    for (var i = 0; i < numArticles; i++) {
+      var wellSection = $("<div>");
+      wellSection.addClass("well wello");
+      wellSection.attr("id", "well-section-" + i);
+      $("#well-section").append(wellSection);
+      if (results.section.home !== "null") {
         console.log('here', results.results[i]);
         $("#well-section" + i)
-          .append("<panel-body>" + results.section + "<panel-body>");}
-    
-          $("#well-section-" + i).append("<panel-body>" + results.results[i].title + "</panel-heading>");
-          $("#well-section-" + i).append("<panel-body>" + results.results[i].abstract + "</panel-body>");
-          $("#well-section-" + i).append("<panel-body>" + results.results[i].byline + "</panel-body>");
-          $("#well-section-" + i).append("<panel-body>" + results.results[i].url + "</panel-body>");
-     
+        .append("<panel-body>" + results.section + "<panel-body>");
+      }
+      
+      $("#well-section-" + i).append("<panel-body>" + results.results[i].title + "</panel-heading>");
+      $("#well-section-" + i).append("<panel-body>" + results.results[i].abstract + "</panel-body>");
+      $("#well-section-" + i).append("<panel-body>" + results.results[i].byline + "</panel-body>");
+      $("#well-section-" + i).append("<panel-body>" + results.results[i].url + "</panel-body>");
     }
-});
-
+  });
 });
 
 
