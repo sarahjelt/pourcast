@@ -219,7 +219,7 @@ function getABeer(val1) {
       label = cheese.data[randomBeerArrNum].labels.large;
     }
     else {
-      label = "assets/images/placehold.jpg";
+      label = "assets/images/drink.png";
     }
 
     if (typeof(cheese.data[randomBeerArrNum].description) !== "undefined") {
