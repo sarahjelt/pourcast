@@ -1,6 +1,6 @@
-* {
+/** {
 	font-family: 'Open Sans', sans-serif;
-}
+}*/
 
 @font-face {
 	font-family: 'digital-clock-font';
@@ -8,26 +8,29 @@
 }
 
 body {
-	/*background: url('../images/cloudy-day.png');*/
-	background: linear-gradient(to bottom right, #95d0cb, #d2b5ce);
-	font-family: 'Roboto Condensed', sans-serif;
+	background: url('../images/blueclouds.jpeg');
+/*	background: linear-gradient(to bottom right, #95d0cb, #d2b5ce);
+*/	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 20px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-color: #C5E6E8;
+}
+
+header {
+	position: relative;
 }
 
 h1 {
 	font-family: 'digital-clock-font', sans-serif;
 	font-size: 76px;
-	color: darkred;
+	color: #4520d9;
 	text-align: center;
-	text-shadow: 1px 1px 10px red;
+	text-shadow: 1px 1px 10px #30fdff;
 }
 
 div {
 	text-align: center;
-}
-
-p {
-	margin: 10px;
-	font-size: 18px;
 }
 
 td {
@@ -40,14 +43,29 @@ td {
 	left: 0;
 	right: 0;
 	width: 100%;
-	background-color: white;
+	background-color: #5CD0EF;
 }
 
-.weather, .beer, .music, .table-count, .news {
-	border: 3px solid darkgray;
-	border-radius: 10px;
+.beer, .music, .table-count, .news {
+	border: 3px solid #5CD0EF;
+	border-radius: 70px;
 	margin: 5% 2% 5% 2%;
-	background-color: white;
+	background-color: #5CD0EF;
+	color: white;
+	padding: 20px;
+}
+
+.weather {
+	text-align: left;
+	font-size: 40px;
+	border: none;
+	margin: 5% 2% 5% 2%;
+	color: white;
+}
+
+.wello {
+	background-color: #47b3d8;
+	border-color: #317f9a;
 }
 
 .table-count {
@@ -57,8 +75,8 @@ td {
 
 }
 
-.zippo, .beero {
-	font-size: 24px;
+.zippo, .beero, .listo, .newyorko {
+	font-size: 40px;
 	font-weight: 800;
 }
 
@@ -73,10 +91,11 @@ td {
 	margin: 5px 5px 12px 5px;
 }
 
-.beer-label {
+img.beer-label {
 	width: 100%;
 	padding-left: 50px;
 	padding-right: 50px;
+	padding-bottom: 10px;
 }
 
 /* The Modal (background) */
@@ -136,7 +155,7 @@ td {
 }
 
 .zippy {
-	border-bottom: 3px solid #8b2617;
+	border-bottom: 5px solid #4a42d9;
 	border-top: transparent;
 	border-right: transparent;
 	border-left: transparent;
@@ -150,10 +169,21 @@ td {
 }
 
 input.submit {
-	background-color: #e8c73a;
+	background-color:  #ea7c3c;
+	font-size: 18px;
 }
 
 input.submit:hover {
-	background-color: #FDDE5B;
+	background-color: #EF9569;
 	transition: all 0.5s;
+}
+
+img#grumpy {
+	position: absolute;
+	right: 0;
+}
+
+iframe#spotify {
+	border: 15px solid black;
+	border-radius: 15px;
 }
