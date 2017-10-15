@@ -464,7 +464,7 @@ function playSpotify(icon) {
   $("#spotify").empty();
 
   if (cloudyPlaylist.indexOf(icon) !== -1) {
-    playlist = cloundyPlaylistSrc;
+    playlist = cloudyPlaylistSrc;
     playlistTitle = "Cloudy Day for a Beer Playlist"
   } else if (clearPlaylist.indexOf(icon) !== -1) {
     playlist = clearPlaylistSrc;
