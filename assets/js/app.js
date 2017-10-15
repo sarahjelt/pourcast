@@ -549,10 +549,10 @@ url += '?' + $.param({
         .append("<panel-body>" + results.section + "<panel-body>");
       }
       
-      $("#well-section-" + i).append("<panel-body>" + results.results[i].title + "</panel-heading>");
-      $("#well-section-" + i).append("<panel-body>" + results.results[i].abstract + "</panel-body>");
-      $("#well-section-" + i).append("<panel-body>" + results.results[i].byline + "</panel-body>");
-      $("#well-section-" + i).append("<panel-body>" + results.results[i].url + "</panel-body>");
+      $("#well-section-" + i).append("<panel-body class='art-title'><strong>" + results.results[i].title + "</strong></panel-body>");
+      $("#well-section-" + i).append("<panel-body class='art-abs'>" + results.results[i].abstract + "</panel-body>");
+      $("#well-section-" + i).append("<panel-body class='art-by'>" + results.results[i].byline + "</panel-body>");
+      $("#well-section-" + i).append("<panel-body><a href='" + results.results[i].url + "' class='art-link' target='_blank'>" + results.results[i].url + "</a></panel-body>");
     }
   });
 });
