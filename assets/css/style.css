@@ -1,16 +1,6 @@
-/** {
-	font-family: 'Open Sans', sans-serif;
-}*/
-
-@font-face {
-	font-family: 'digital-clock-font';
-	src: url('../fonts/digital-7.regular.ttf');
-}
-
 body {
 	background: url('../images/blueclouds.jpeg');
-/*	background: linear-gradient(to bottom right, #95d0cb, #d2b5ce);
-*/	font-family: 'Roboto Condensed', sans-serif;
+	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 20px;
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -22,11 +12,11 @@ header {
 }
 
 h1 {
-	font-family: 'digital-clock-font', sans-serif;
-	font-size: 76px;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 80px;
+	font-weight: 700;
 	color: #4520d9;
 	text-align: center;
-	text-shadow: 1px 1px 10px #30fdff;
 }
 
 div {
@@ -90,6 +80,10 @@ tr {
 	font-weight: 800;
 }
 
+.zippo {
+	text-align: center;
+}
+
 .brewery {
 	font-size: 21px;
 	font-weight: 400;
@@ -122,24 +116,6 @@ img.beer-label {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
 }
-
-/* Add Animation - Zoom in the Modal */
-/*.modal-content {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}*/
-
-/*@-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)}
-    to {-webkit-transform:scale(1)}
-}
-
-@keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
-}*/
 
 /* The Close Button */
 .close {
