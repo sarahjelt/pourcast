@@ -65,17 +65,13 @@ var recommendationsObj = {
   }]
 }
 
-//when you submit zip code, set that zip in localstorage and rec new beer
+//When you submit zip code, set that zip in localstorage and rec new beer
 $(".submit").on("click", function(event) {
   var zip = $(".zippy").val().trim();
   var code = $(".zippy").val().trim();
-
   var modal = $("#myModal");
+  var span = $(".close"); // Get the <span> element that closes the modal
 
-  // Get the <span> element that closes the modal
-  var span = $(".close");
-
-  console.log(zip);
   event.preventDefault();
 
   localStorage.clear();
@@ -97,6 +93,7 @@ $(".submit").on("click", function(event) {
 
   $(".weather").empty();
   $(".beer").empty();
+  
   var queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
 
   $.ajax({
@@ -112,26 +109,22 @@ $(".submit").on("click", function(event) {
 
     $(".weather").append(zippy);
     zippy.html(response.location.zip);
-    console.log(response.location.zip + "is working");
     $(".weather").append(weatherInfo);
     weatherInfo.text(results.fcttext);
 
     if (weatherIcon === "tstorms" || weatherIcon === "rain") {
       getARainText();
-    }
-
-    else {
+    } else {
       getAColorText(highTemp);
     }
     
     getABeer(weatherIcon);
     playSpotify(weatherIcon);
-    })
+    });
 
   if (code.length !== 5) {
     modal.css("display", "block");
     $(".zippy").val("");
-    console.log("i don't understand you");
   }
 
   // When the user clicks on <span> (x), close the modal
@@ -140,12 +133,11 @@ $(".submit").on("click", function(event) {
   }
 });
 
-// Function to determine the weather based on zip in local storage, for repeat visitors reloading page.
+// Function to determine the weather based on zip in localStorage, for repeat visitors reloading page.
 function weather() {
   var queryURL
 
   if (!localStorage.getItem("zip")) {
-    // getYourLocation();
     var zip = $(".zippy").val().trim();
     queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
   } 
@@ -154,19 +146,15 @@ function weather() {
     queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
   }
 
-    $.ajax({
-      url: queryURL,
-      method: 'GET'
-    })
-  .done(function(response) {
-    
-    console.log(response);
+  $.ajax({
+    url: queryURL,
+    method: 'GET'
+  }).done(function(response) {
     var results = response.forecast.txt_forecast.forecastday[0];
     var zippy = $("<p class='zippo'>");
     var weatherInfo = $("<p>");
     var weatherIcon = response.forecast.txt_forecast.forecastday[0].icon;
     var highTemp = response.forecast.simpleforecast.forecastday[0].high.fahrenheit;
-
 
     $(".weather").append(zippy);
     zippy.text(response.location.zip);
@@ -178,9 +166,7 @@ function weather() {
 
     if (weatherIcon === "tstorms" || weatherIcon === "rain") {
       getARainText();
-    }
-
-    else {
+    } else {
       getAColorText(highTemp);
     }
   })
@@ -188,10 +174,9 @@ function weather() {
 
 weather();
 
-// Function to pull a beer from BreweryDB, passing weatherIcon as a parameter. 
+// Function to pull a beer from BreweryDB, passes weatherIcon as a parameter. 
 function getABeer(val1) {
   var weatherKey
-
   for (var i = 0; i < recommendationsObj.pairs.length; i++) {
     if (recommendationsObj.pairs[i].icon === val1) {
       weatherKey = i;
@@ -208,7 +193,6 @@ function getABeer(val1) {
     method: "GET"
   }).done(function(cheese) {
     var randomBeerArrNum = Math.floor(Math.random() * 50);
-
     var beerName = cheese.data[randomBeerArrNum].name;
     var brewery = cheese.data[randomBeerArrNum].breweries[0].name;
     var abv;
@@ -217,22 +201,19 @@ function getABeer(val1) {
 
     if (typeof(cheese.data[randomBeerArrNum].labels) !== "undefined") {
       label = cheese.data[randomBeerArrNum].labels.large;
-    }
-    else {
+    } else {
       label = "assets/images/drink.png";
     }
 
     if (typeof(cheese.data[randomBeerArrNum].description) !== "undefined") {
       description = cheese.data[randomBeerArrNum].description;      
-    }
-    else {
+    } else {
       description = "";
     }
 
     if (typeof(cheese.data[randomBeerArrNum].abv) !== "undefined") {
       abv = cheese.data[randomBeerArrNum].abv;
-    }
-    else {
+    } else {
       abv = "mystery";
     }
 
@@ -253,7 +234,7 @@ function getABeer(val1) {
   })
 }
 
-// function to determine which colorful rain description we're applying to the forecast 
+// Function to determine which colorful rain description we're applying to the forecast 
 function getARainText() {
   var colorTextArr = ["Rainboots go with everything today.", "Today's weather is wet feet. All day.",
   "Today all of your internal crying affected the universe and your own weak human tears are raining down on you. You need a beer.",
@@ -282,62 +263,54 @@ function getAColorText(temp) {
     "Mordor",
     "These are the days sweat stains are made out of.",
     "Today you’re going to sweat in places you didn’t know could sweat. It’s going to be awful."];
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   } 
-
   else if (temp >= 80 && temp < 90) {
     var colorTextArr = ["Today is undercooked fried eggs on the sidewalk. You’re still going to sweat.",
     "Today is...too fucking hot. But maybe you're the one to like that light sweaty sheen on your clothes."];
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   }
-
   else if (temp >= 70 && temp < 80) {
     var colorTextArr = ["Is it Spring? Is it Fall? Is it that weird winter day that reminds you global warming is real?",
     "Your body might like it outside today.", "Whoa what a weather."];  
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   }
-
   else if (temp >= 60 && temp < 70) {
     var colorTextArr = ["Do you need a jacket? Do you wear a sweater? A t-shirt? Closet roulette."];
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   }
-
   else if (temp >= 50 && temp < 60) {
     var colorTextArr = ["Today’s weather is amazing so get your butt outside already.",
     "It’s rainbows and unicorns and fairies out there."];
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   }
-
   else if (temp >= 40 && temp < 50) {
     var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer.",
     "Whoa, what a weather."];
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   }
-
   else if (temp >= 30 && temp < 40) {
     var colorTextArr = ["Wow, this is perfect weather for a beer. Jk, it’s always perfect weather for a beer."];
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   }
-
   else if (temp >= 20 && temp < 30) {
     var colorTextArr = ["It’s too cold to leave bed. Don’t bother.",
     "Today’s weather means your hands are colder than the beer you’re drinking. Worth it."];
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   }
-
   else if (temp < 20) {
     var colorTextArr = ["It’s Summer! ...somewhere else. Far away. Not here.",
     "Today’s weather is colder than the cold, icy heart you pretend you don’t have.",
     "Today is the cold, bleak grip of a death eater. All day."];
-    var random = Math.floor(Math.random() * colorTextArr.length)
+    var random = Math.floor(Math.random() * colorTextArr.length);
     var weatherText = colorTextArr[random];
   }
 
@@ -349,12 +322,12 @@ function getAColorText(temp) {
 // Function to put transitional language between weather, beer+playlist.
 function transitionLang() {
   var pTag = $("<p>");
-  var pText = "We recommend pairing your forecast with this beer and playlist:"
+  var pText = "We recommend pairing your forecast with this beer and playlist:";
 
   pTag.text(pText).appendTo(".weather");
 }
 
-////////// Initializes Firebase
+// Initializes Firebase
 var config = {
     apiKey: "AIzaSyD8Ty6GU2c1yTwgvvS66r3Th5cM55HZEyA",
     authDomain: "project-one-c87a1.firebaseapp.com",
@@ -369,6 +342,7 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var beersRef = database.ref("beers");
 
+// Stores beer recommendation in firebase.
 function sendBeerToFire(beer, descript, abv, brewery) {
   if (descript === "undefined") {
     descript = "";
@@ -389,104 +363,72 @@ function sendBeerToFire(beer, descript, abv, brewery) {
   });
 
   database.ref("beers").limitToLast(20).on("child_added", function(childSnapshot) {
-
     $('.table').prepend("<tr><td></td><td></td><td></td></tr>");
+    var firstRowTds = $("table")
+      .children()
+      .eq(1)
+      .children("tr")
+      .eq(0)
+      .children("td");
 
-      var firstRowTds = $("table")
-        .children()
-        .eq(1)
-        .children("tr")
-        .eq(0)
-        .children("td");
-
-      firstRowTds.eq(0).text(childSnapshot.val().beer);
-      firstRowTds.eq(1).text(childSnapshot.val().brewery);
-      firstRowTds.eq(2).text(childSnapshot.val().abv + " %");
+    firstRowTds.eq(0).text(childSnapshot.val().beer);
+    firstRowTds.eq(1).text(childSnapshot.val().brewery);
+    firstRowTds.eq(2).text(childSnapshot.val().abv + " %");
   })
 }
 
-// function geoFindMe() {
-//   var output = document.getElementById("out");
-
-//   if (!navigator.geolocation){
-//     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-//     return;
-//   }
-
-//   function success(position) {
-//     var latitude  = position.coords.latitude;
-//     var longitude = position.coords.longitude;
-
-//     output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-//   }
-
-//   function error() {
-//     output.innerHTML = "Unable to retrieve your location";
-//   }
-
-//   output.innerHTML = "<p>Locating…</p>";
-
-//   navigator.geolocation.getCurrentPosition(success, error);
-// }
-
 // Function to determine playlist based on weather, pop to DOM. Passes weatherIcon as a param.
 function playSpotify(icon) { 
-  var cloudyPlaylist = ["cloudy", "fog", "hazy", "nt_chancetstorms"]
-  var cloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:shelbysatt:playlist:1zSs9BHKuMLjhsPKEyIYiT"]
+  var cloudyPlaylist = ["cloudy", "fog", "hazy", "nt_chancetstorms"];
+  var cloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:shelbysatt:playlist:1zSs9BHKuMLjhsPKEyIYiT"];
 
-  var clearPlaylist = ["sunny", "clear"]
-  var clearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:chloeszep:playlist:2WbnT6KIaCyPhvT7FjGkhj"]
+  var clearPlaylist = ["sunny", "clear"];
+  var clearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:chloeszep:playlist:2WbnT6KIaCyPhvT7FjGkhj"];
 
+  var stormyPlaylist = ["tstorms", "chancetstorms",];
+  var stormyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX2pSTOxoPbx9"];
 
-  var stormyPlaylist = ["tstorms", "chancetstorms",]
-  var stormyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX2pSTOxoPbx9"]
+  var snowPlaylist = ["snow", "chanceflurries", "chancesleet", "chancesnow", "flurries", "sleet"];
+  var snowPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11135485325:playlist:1UOKjxsR4Kcauv8oUYtNzO"];
 
+  var mocloudyPlaylist = ["mostlycloudy"];
+  var mocloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:1276682885:playlist:2TtL9oWZuTDciLtqlrjgQh"];
 
-  var snowPlaylist = ["snow", "chanceflurries", "chancesleet", "chancesnow", "flurries", "sleet"]
-  var snowPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11135485325:playlist:1UOKjxsR4Kcauv8oUYtNzO"]
+  var moclearPlaylist = ["mostlysunny", "partlycloudy", "partlysunny"];
+  var moclearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWX1vYQSk2Qrd"];
 
+  var rainPlaylist = ["rain", "chancerain"];
+  var rainPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DXbvABJXBIyiY"];
 
-  var mocloudyPlaylist = ["mostlycloudy"]
-  var mocloudyPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:1276682885:playlist:2TtL9oWZuTDciLtqlrjgQh"]
-
-
-  var moclearPlaylist = ["mostlysunny", "partlycloudy", "partlysunny"]
-  var moclearPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWX1vYQSk2Qrd"]
-
-
-  var rainPlaylist = ["rain", "chancerain"]
-  var rainPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DXbvABJXBIyiY"]
-
-
-  var unknownPlaylist = ["unknown"]
-  var unknownPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11173244841:playlist:0T7TZgUDT14o7fmWGrzvHk"]
+  var unknownPlaylist = ["unknown"];
+  var unknownPlaylistSrc = ["https://open.spotify.com/embed?uri=spotify:user:11173244841:playlist:0T7TZgUDT14o7fmWGrzvHk"];
 
   $("#spotify").empty();
 
   if (cloudyPlaylist.indexOf(icon) !== -1) {
     playlist = cloudyPlaylistSrc;
-    playlistTitle = "Cloudy Day for a Beer Playlist"
+    playlistTitle = "Cloudy Day for a Beer Playlist";
   } else if (clearPlaylist.indexOf(icon) !== -1) {
     playlist = clearPlaylistSrc;
-    playlistTitle = "What a Clear Day for a Beer Playlist"
+    playlistTitle = "What a Clear Day for a Beer Playlist";
   } else if (stormyPlaylist.indexOf(icon) !== -1) {
     playlist = stormyPlaylistSrc;
-    playlistTitle = "Thunder and Lightning and Beer Playlist"
+    playlistTitle = "Thunder and Lightning and Beer Playlist";
   } else if (snowPlaylist.indexOf(icon) !== -1) {
     playlist = snowPlaylistSrc;
-    playlistTitle = "It's a Snowy Beer Day Playlist"
+    playlistTitle = "It's a Snowy Beer Day Playlist";
   } else if (mocloudyPlaylist.indexOf(icon) !== -1) {
     playlist = mocloudyPlaylistSrc;
-    playlistTitle = "Mostly Cloudy Beer Playlist"
+    playlistTitle = "Mostly Cloudy Beer Playlist";
   } else if (moclearPlaylist.indexOf(icon) !== -1) {
     playlist = moclearPlaylistSrc;
-    playlistTitle = "What a Clear Day for a Beer Playlist"
+    playlistTitle = "What a Clear Day for a Beer Playlist";
   } else if (rainPlaylist.indexOf(icon) !== -1) {
     playlist = rainPlaylistSrc;
-    playlistTitle = "Rainy Days Deserve Beers and Playlists"
+    playlistTitle = "Rainy Days Deserve Beers and Playlists";
   } else {
     playlist = unknownPlaylistSrc;
-    playlistTitle = "It's the Apocalypse Maybe Playlist"
+    playlistTitle = "It's the Apocalypse Maybe Playlist";
   }
 
   $("#spotify").attr("src", playlist);
@@ -495,49 +437,20 @@ function playSpotify(icon) {
 
 }
 
-// Geolocator API to automatically populate with your local zip code. 
-// function getYourLocation() {
-//   var queryURL = "https://ip-api.com/json"
-
-//   $.ajax({
-//     url: queryURL,
-//     method: "GET"
-//   }).done(function(pizza) {
-//     console.log(pizza);
-//     var autoZippy = pizza.zip;
-//     console.log(autoZippy);
-
-//     localStorage.clear();
-//     localStorage.setItem("geoZip", autoZippy);
-
-//     if (autoZippy === "") {
-//       autoZippy = "90210";
-//       console.log(autoZippy);
-
-//       localStorage.clear();
-//       localStorage.setItem("geoZip", autoZippy);
-//     }
-//   })
-// }
-
-// getYourLocation();
-
-$(document).ready(function () {
-  console.log("NYT works");
+// NYT API pull, pops articles to the dom in the news div.
+$(document).ready(function() {
   var url = "https://api.nytimes.com/svc/topstories/v2/home.json";
-url += '?' + $.param({
-  'api-key': "c9018bad76144ca0a408994b54795e18"
-});
+  
+  url += '?' + $.param({
+    'api-key': "c9018bad76144ca0a408994b54795e18"
+  });
+  
   var numArticles = 5
+  
   $.ajax({
-  url: url,
-  method: 'GET',
-}).done(function(results) {
-    console.log("------------------");
-    console.log(url);
-    console.log("------------------");
-    console.log(numArticles);
-    console.log(results);
+    url: url,
+    method: 'GET',
+  }).done(function(results) {
     $("#well-section").empty();
     for (var i = 0; i < numArticles; i++) {
       var wellSection = $("<div>");
@@ -545,7 +458,6 @@ url += '?' + $.param({
       wellSection.attr("id", "well-section-" + i);
       $("#well-section").append(wellSection);
       if (results.section.home !== "null") {
-        console.log('here', results.results[i]);
         $("#well-section" + i)
         .append("<panel-body>" + results.section + "<panel-body>");
       }
@@ -557,5 +469,3 @@ url += '?' + $.param({
     }
   });
 });
-
-
