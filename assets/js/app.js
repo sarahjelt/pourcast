@@ -490,6 +490,7 @@ function playSpotify(icon) {
   }
 
   $("#spotify").attr("src", playlist);
+  $(".listo").empty();
   $("<p>").text(playlistTitle).addClass("listo").prependTo(".music");
 
 }
