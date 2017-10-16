@@ -73,6 +73,10 @@ tr {
 	color: white;
 }
 
+.beer, .music {
+	height: 100%;
+}
+
 .wello {
 	background-color: #47b3d8;
 	border-color: #317f9a;
