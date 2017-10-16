@@ -35,6 +35,11 @@ div {
 
 td {
 	text-align: left;
+	padding: 14px;
+}
+
+tr {
+	padding: 0 20px 0 20px;
 }
 
 .sticky {
@@ -43,11 +48,16 @@ td {
 	left: 0;
 	right: 0;
 	width: 100%;
+	border-top-right-radius: 70px;
+	border-top-left-radius: 70px;
 	background-color: #5CD0EF;
+	z-index: 1000;
+	padding: 15px;
+	/*border: 12px;*/
 }
 
 .beer, .music, .table-count, .news {
-	border: 3px solid #5CD0EF;
+	/*border: 3px solid #5CD0EF;*/
 	border-radius: 70px;
 	margin: 5% 2% 5% 2%;
 	background-color: #5CD0EF;
@@ -74,9 +84,9 @@ td {
 
 .table-count {
 	overflow-y: scroll;
-	max-height: 25vh;
+	max-height: 35vh;
 	position: relative;
-
+	padding: 0;
 }
 
 .zippo, .beero, .listo, .newyorko {
@@ -190,4 +200,44 @@ img#grumpy {
 iframe#spotify {
 	border: 15px solid black;
 	border-radius: 15px;
+}
+
+#well-section-0, #well-section-1, #well-section-2, #well-section-3, #well-section-4 {
+	padding: 2%;
+}
+
+panel-body:before, panel-body:after {
+    content: ' ';
+    display: table;
+}
+
+a.art-link {
+	font-size: 18px;
+	color: white;
+	line-height: 18px;
+	margin-top: 6px;
+}
+
+a.art-link:hover {
+	color: #C5E6E8;
+	text-decoration: none;
+}
+
+a.art-link:visited {
+	text-decoration: none;
+}
+
+.art-title {
+	font-size: 24px;
+}
+
+.art-abs {
+	font-size: 22px;
+	line-height: 20px;
+	margin-top: 6px;
+}
+
+.art-by {
+	font-size: 18px;
+	margin-top: 6px;
 }
