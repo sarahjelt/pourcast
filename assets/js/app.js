@@ -139,7 +139,7 @@ function weather() {
 
   if (!localStorage.getItem("zip")) {
     var zip = $(".zippy").val().trim();
-    queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("zip") + ".json";
+    queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("geoZip") + ".json";
   } 
 
   else if (localStorage.getItem("zip").length === 5) {
