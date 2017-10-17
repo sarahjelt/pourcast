@@ -217,3 +217,27 @@ a.art-link:visited {
 	font-size: 18px;
 	margin-top: 6px;
 }
+
+@media screen and (max-width: 1090px) {
+	body {
+		background-size: 130%;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	body {
+		background-size: 170%;
+	}
+}
+
+@media screen and (max-width: 751px) {
+	body {
+		background-size: 200%;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	body {
+		background-size: cover;
+	}
+}
