@@ -471,7 +471,7 @@ $(document).ready(function() {
       $("#well-section-" + i).append("<panel-body class='art-title'><strong>" + results.results[i].title + "</strong></panel-body>");
       $("#well-section-" + i).append("<panel-body class='art-abs'>" + results.results[i].abstract + "</panel-body>");
       $("#well-section-" + i).append("<panel-body class='art-by'>" + results.results[i].byline + "</panel-body>");
-      $("#well-section-" + i).append("<panel-body><a href='" + results.results[i].url + "' class='art-link' target='_blank'>" + results.results[i].url + "</a></panel-body>");
+      $("#well-section-" + i).append("<panel-body><a href='" + results.results[i].url + "' class='art-link' target='_blank'>" + "Read more..." + "</a></panel-body>");
     }
   });
 });
