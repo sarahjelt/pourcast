@@ -435,6 +435,12 @@ function playSpotify(icon) {
   $(".listo").empty();
   $("<p>").text(playlistTitle).addClass("listo").prependTo(".music");
 
+  var myTimer = setTimeout(removeLoading, 500)
+
+  function removeLoading() {
+    $("#loading-gif").addClass("loading-gif-hide");
+    clearTimeout(myTimer);
+  }
 }
 
 // NYT API pull, pops articles to the dom in the news div.
