@@ -186,7 +186,7 @@ function getABeer(val1) {
   var randomBeerType = Math.floor(Math.random() * recommendationsObj.pairs[weatherKey].beer.length)
   var APIkey = "c54928017d8919c3c993272329ea38d1";
   var beer = recommendationsObj.pairs[weatherKey].beer[randomBeerType];
-  var searchQueryURL = "https://api.brewerydb.com/v2/search?key=" + APIkey + "&q=" + beer + "&type=beer&withBreweries=Y";
+  var searchQueryURL = "https://cryptic-waters-49114.herokuapp.com/v2/search?key=" + APIkey + "&q=" + beer + "&type=beer&withBreweries=Y";
 
   $.ajax({
     url: searchQueryURL,
