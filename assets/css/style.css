@@ -41,15 +41,12 @@ tr {
 	border-top-right-radius: 70px;
 	border-top-left-radius: 70px;
 	background-color: #5CD0EF;
-	z-index: 1000;
 	padding: 15px;
-	/*border: 12px;*/
 }
 
 .beer, .music, .table-count, .news {
-	/*border: 3px solid #5CD0EF;*/
 	border-radius: 70px;
-	margin: 5% 2% 5% 2%;
+	margin: 5% 2% 0 2%;
 	background-color: #5CD0EF;
 	color: white;
 	padding: 20px;
@@ -109,16 +106,16 @@ img.beer-label {
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.9);
 }
 
 /* The Close Button */
@@ -218,6 +215,18 @@ a.art-link:visited {
 	margin-top: 6px;
 }
 
+footer {
+	bottom: 0;
+	left: 0;
+	width: 100vw;
+	clear: both;
+	text-align: center;
+	color: white;
+	background-color: #E27F53;
+	padding: 2%;
+	margin-top: 3%;
+}
+
 @media screen and (max-width: 1090px) {
 	body {
 		background-size: 130%;
@@ -240,4 +249,3 @@ a.art-link:visited {
 	body {
 		background-size: cover;
 	}
-}
