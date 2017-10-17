@@ -79,13 +79,11 @@ $(".submit").on("click", function(event) {
 
   if (zip === "") {
       zip = "90210";
-      console.log(zip);
 
       localStorage.clear();
       localStorage.setItem("zip", zip);
     } else if (zip.length !== 5) {
       zip = "90210";
-      console.log(zip);
 
       localStorage.clear();
       localStorage.setItem("zip", zip);
@@ -139,7 +137,7 @@ function weather() {
 
   if (!localStorage.getItem("zip")) {
     getYourZippy();
-    var zip = $(".zippy").val().trim();
+    console.log("line 145 + " + localStorage.getItem("geoZip"));
     queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("geoZip") + ".json";
   } 
 
@@ -173,8 +171,6 @@ function weather() {
   })
 }
 
-weather();
-
 // Geolocator API to automatically populate with your local zip code
 function getYourZippy() {
   var queryURL = "https://ipapi.co/json/";
@@ -200,6 +196,7 @@ function getYourZippy() {
 }
 
 getYourZippy();
+weather();
 
 // Function to pull a beer from BreweryDB, passes weatherIcon as a parameter. 
 function getABeer(val1) {
