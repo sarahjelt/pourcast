@@ -553,6 +553,9 @@ url += '?' + $.param({
       $("#well-section-" + i).append("<panel-body class='art-abs'>" + results.results[i].abstract + "</panel-body>");
       $("#well-section-" + i).append("<panel-body class='art-by'>" + results.results[i].byline + "</panel-body>");
       $("#well-section-" + i).append("<panel-body><a href='" + results.results[i].url + "' class='art-link' target='_blank'>" + results.results[i].url + "</a></panel-body>");
+      $("#well-section-" + i).append("<img src= '" + results.results[i].multimedia[1].url + "' class='art-img'" + "/>");
+
+
     }
   });
 });

@@ -237,3 +237,12 @@ a.art-link:visited {
 	font-size: 18px;
 	margin-top: 6px;
 }
+
+.art-img {
+	float: left;
+	padding: 20px 0;
+	position: relative;
+	top: -175px;
+	margin: auto;
+
+}	
