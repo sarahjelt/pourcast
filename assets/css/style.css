@@ -215,6 +215,17 @@ a.art-link:visited {
 	margin-top: 6px;
 }
 
+#loading-gif {
+	height: 400px;
+	width: 315px;
+	position: absolute;
+	text-align: center;
+}
+
+.loading-gif-hide {
+	display: none;
+}
+
 footer {
 	bottom: 0;
 	left: 0;
