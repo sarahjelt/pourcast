@@ -65,6 +65,10 @@ var recommendationsObj = {
   }]
 }
 
+$(window).on("load", function() {
+  $(".loader").fadeOut(3000);
+})
+
 // Geolocator API to automatically populate with your local zip code
 function getYourZippy() {
   var queryURL = "https://ipapi.co/json/";
