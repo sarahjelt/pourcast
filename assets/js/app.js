@@ -494,11 +494,12 @@ $(document).ready(function() {
         $("#well-section" + i)
         .append("<panel-body>" + results.section + "<panel-body>");
       }
-      
-      $("#well-section-" + i).append("<panel-body class='art-title'><strong>" + results.results[i].title + "</strong></panel-body>");
-      $("#well-section-" + i).append("<panel-body class='art-abs'>" + results.results[i].abstract + "</panel-body>");
-      $("#well-section-" + i).append("<panel-body class='art-by'>" + results.results[i].byline + "</panel-body>");
-      $("#well-section-" + i).append("<panel-body><a href='" + results.results[i].url + "' class='art-link' target='_blank'>" + "Read more..." + "</a></panel-body>");
+      $("#well-section-" + i).append("<img src= '" + results.results[i].multimedia[1].url + "' class='art-img'" + "/>");
+      $("#well-section-" + i).append("<div class='article'></div>");
+      $("#well-section-" + i + " div").append("<p class='art-title'><strong>" + results.results[i].title + "</strong></p>");
+      $("#well-section-" + i + " div").append("<p class='art-abs'>" + results.results[i].abstract + "</p>");
+      $("#well-section-" + i + " div").append("<p class='art-by'>" + results.results[i].byline + "</p>");
+      $("#well-section-" + i + " div").append("<p><a href='" + results.results[i].url + "' class='art-link' target='_blank'>" + "Read more..." + "</a></p>");
     }
   });
 });

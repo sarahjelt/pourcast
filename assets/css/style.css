@@ -69,6 +69,10 @@ tr {
 	background-color: #47b3d8;
 	border-color: #317f9a;
 }
+.art-img {
+	padding: 20px;
+	position: relative;
+}	
 
 .table-count {
 	overflow-y: scroll;
@@ -240,6 +244,20 @@ footer {
 	margin-top: 3%;
 }
 
+@media screen and (min-width: 1091px){
+
+	div.article {
+		text-align: left;
+		position: absolute;
+		margin-left: 190px;
+		top: 40px;
+	}
+	.wello {
+		text-align: left;
+		position: relative;
+	}
+}
+
 @media screen and (max-width: 1090px) {
 	body {
 		background-size: 130%;
@@ -262,3 +280,5 @@ footer {
 	body {
 		background-size: cover;
 	}
+
+}
