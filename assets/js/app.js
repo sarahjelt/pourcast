@@ -65,6 +65,36 @@ var recommendationsObj = {
   }]
 }
 
+$(window).on("load", function() {
+  $(".loader").fadeOut(3000);
+})
+
+// Geolocator API to automatically populate with your local zip code
+function getYourZippy() {
+  var queryURL = "https://ipapi.co/json/";
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).done(function(pizza) {
+    var autoZippy = pizza.postal;
+
+    localStorage.clear();
+    localStorage.setItem("geoZip", autoZippy);
+
+    if (autoZippy === "") {
+      autoZippy = "90210";
+
+      localStorage.clear();
+      localStorage.setItem("geoZip", autoZippy);
+    }
+
+    weather();
+  })
+}
+
+getYourZippy();
+
 //When you submit zip code, set that zip in localstorage and rec new beer
 $(".submit").on("click", function(event) {
   var zip = $(".zippy").val().trim();
@@ -79,13 +109,11 @@ $(".submit").on("click", function(event) {
 
   if (zip === "") {
       zip = "90210";
-      console.log(zip);
 
       localStorage.clear();
       localStorage.setItem("zip", zip);
     } else if (zip.length !== 5) {
       zip = "90210";
-      console.log(zip);
 
       localStorage.clear();
       localStorage.setItem("zip", zip);
@@ -138,8 +166,6 @@ function weather() {
   var queryURL
 
   if (!localStorage.getItem("zip")) {
-    getYourZippy();
-    var zip = $(".zippy").val().trim();
     queryURL = "https://api.wunderground.com/api/b6005ea6b47964f3/forecast/geolookup/q/" + localStorage.getItem("geoZip") + ".json";
   } 
 
@@ -172,34 +198,6 @@ function weather() {
     }
   })
 }
-
-weather();
-
-// Geolocator API to automatically populate with your local zip code
-function getYourZippy() {
-  var queryURL = "https://ipapi.co/json/";
-
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).done(function(pizza) {
-    console.log(pizza);
-    var autoZippy = pizza.postal;
-    console.log(autoZippy);
-
-    localStorage.clear();
-    localStorage.setItem("geoZip", autoZippy);
-
-    if (autoZippy === "") {
-      autoZippy = "90210";
-
-      localStorage.clear();
-      localStorage.setItem("geoZip", autoZippy);
-    }
-  })
-}
-
-getYourZippy();
 
 // Function to pull a beer from BreweryDB, passes weatherIcon as a parameter. 
 function getABeer(val1) {
