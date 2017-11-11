@@ -1,2 +1,2 @@
-# project-one
-wake-up app!
+# pourcast
+A weather-and-beer app!
