@@ -492,7 +492,9 @@ $(document).ready(function() {
         $("#well-section" + i)
         .append("<panel-body>" + results.section + "<panel-body>");
       }
+      if (results.results[i].multimedia.length > 0) {
       $("#well-section-" + i).append("<img src= '" + results.results[i].multimedia[1].url + "' class='art-img'" + "/>");
+      }
       $("#well-section-" + i).append("<div class='article'></div>");
       $("#well-section-" + i + " div").append("<p class='art-title'><strong>" + results.results[i].title + "</strong></p>");
       $("#well-section-" + i + " div").append("<p class='art-abs'>" + results.results[i].abstract + "</p>");
