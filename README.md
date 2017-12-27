@@ -1,4 +1,4 @@
-# pourcast
+# Pourcast
 A weather-and-beer app!
 
 Uses IP API to detect your approximate location...
@@ -20,6 +20,7 @@ And a table at the bottom of the page that shows the most recent 20 beers that'v
 
 ![screenshot of beer table](docs/capture5.png)
 
+
 # Technologies Used:
 <ul>
 <li>HTML</li>
@@ -34,4 +35,3 @@ And a table at the bottom of the page that shows the most recent 20 beers that'v
 <li>NYTimes API</li>
 <li>IP API</li>
 </ul>
-
